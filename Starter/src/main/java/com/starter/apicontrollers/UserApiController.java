@@ -55,7 +55,9 @@ public class UserApiController extends BaseApiController {
 			return result;
 		}
 
+		user.load(userForm);
 		this.userRepository.save(user);
+
 		result.put("user", user);
 		return result;
 	}

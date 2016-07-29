@@ -51,7 +51,8 @@ public class UserController extends BaseController {
 			return "users/new";
 		}
 
-		UserEntity user = new UserEntity(userForm);
+		UserEntity user = new UserEntity();
+		user.load(userForm);
 		this.userRepository.save(user);
 
 		return "redirect:/users";

@@ -9,20 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.beans.BeanUtils;
-
-import com.starter.forms.UserForm;
-
 @Entity
 @Table(name = "users")
-public class UserEntity {
-
-	public UserEntity() {
-	}
-
-	public UserEntity(UserForm userForm) {
-		BeanUtils.copyProperties(userForm, this);
-	}
+public class UserEntity extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -71,11 +60,11 @@ public class UserEntity {
 	private Date	updatedAt;
 
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 
 	public void setUsername(String username) {
@@ -83,7 +72,7 @@ public class UserEntity {
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
@@ -91,7 +80,7 @@ public class UserEntity {
 	}
 
 	public String getFirstname() {
-		return firstname;
+		return this.firstname;
 	}
 
 	public void setFirstname(String firstname) {
@@ -99,7 +88,7 @@ public class UserEntity {
 	}
 
 	public String getMiddlename() {
-		return middlename;
+		return this.middlename;
 	}
 
 	public void setMiddlename(String middlename) {
@@ -107,7 +96,7 @@ public class UserEntity {
 	}
 
 	public String getLastname() {
-		return lastname;
+		return this.lastname;
 	}
 
 	public void setLastname(String lastname) {
@@ -115,7 +104,7 @@ public class UserEntity {
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -123,7 +112,7 @@ public class UserEntity {
 	}
 
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
 
 	public void setPhone(String phone) {
@@ -131,7 +120,7 @@ public class UserEntity {
 	}
 
 	public String getAddress() {
-		return address;
+		return this.address;
 	}
 
 	public void setAddress(String address) {
@@ -139,7 +128,7 @@ public class UserEntity {
 	}
 
 	public String getCity() {
-		return city;
+		return this.city;
 	}
 
 	public void setCity(String city) {
@@ -147,7 +136,7 @@ public class UserEntity {
 	}
 
 	public String getState() {
-		return state;
+		return this.state;
 	}
 
 	public void setState(String state) {
@@ -155,7 +144,7 @@ public class UserEntity {
 	}
 
 	public String getZipcode() {
-		return zipcode;
+		return this.zipcode;
 	}
 
 	public void setZipcode(String zipcode) {
@@ -163,7 +152,7 @@ public class UserEntity {
 	}
 
 	public String getCountry() {
-		return country;
+		return this.country;
 	}
 
 	public void setCountry(String country) {
@@ -171,7 +160,7 @@ public class UserEntity {
 	}
 
 	public Date getCreatedAt() {
-		return createdAt;
+		return this.createdAt;
 	}
 
 	public void setCreatedAt(Date createdAt) {
@@ -179,7 +168,7 @@ public class UserEntity {
 	}
 
 	public Date getUpdatedAt() {
-		return updatedAt;
+		return this.updatedAt;
 	}
 
 	public void setUpdatedAt(Date updatedAt) {

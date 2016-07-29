@@ -9,7 +9,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 @NoRepositoryBean
 public interface BaseRepository<T, ID extends Serializable> extends CrudRepository<T, ID> {
 
-    @Override
-    List<T> findAll();
+	@Override
+	public List<T> findAll();
 
 }
