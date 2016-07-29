@@ -1,0 +1,49 @@
+body {
+	padding-top: 50px;
+}
+
+h1 {
+	margin-top: -4px;
+}
+
+.navbar {
+	margin-bottom: 0;
+}
+
+.page-wrap {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.tools {
+	padding: 8px;
+	border: solid 1px #ddd;
+	margin-bottom: 8px;
+}
+
+.inline {
+	display: inline !important;
+}
+
+.panel-border-top {
+	border-top: solid 1px #ddd;
+	padding-top: 30px;
+}
+
+.field-error-message {
+	color: #a94442;
+	display: block;
+	padding: 3px 0 0 3px;
+	font-size: 12px;
+}
+
+.editable-input {
+	display: inline;
+	width: 200px;
+	height: 30px;
+	display: none;
+}
+
+.editable-display {
+	
+}
