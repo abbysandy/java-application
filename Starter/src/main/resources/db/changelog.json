@@ -1,0 +1,149 @@
+{
+    "databaseChangeLog": [{
+        "changeSet": {
+            "id": "initial-schema",
+            "author": "brettmeyer",
+            "changes": [{
+                "createTable": {
+                    "tableName": "users",
+                    "columns": [{
+                        "column": {
+                            "name": "id",
+                            "type": "int",
+                            "autoIncrement": true,
+                            "constraints": [{
+                                "primaryKey": true,
+                                "nullable": false
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "username",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "unique": true,
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "password",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "firstname",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "middlename",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "lastname",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "email",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "phone",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "address",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "city",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "state",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "zipcode",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "country",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "created_at",
+                            "type": "datetime",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "updated_at",
+                            "type": "datetime",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }]
+                }
+            }]
+        }
+    }, {
+        "changeSet": {
+            "id": "initial-user-data",
+            "author": "brettmeyer",
+            "changes": [{
+                "loadData": {
+                    "tableName": "users",
+                    "file": "db/users.csv",
+                    "quotchar": "\""
+                }
+            }]
+        }
+    }]
+}
