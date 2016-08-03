@@ -34,6 +34,11 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
 	public String detailsUser(Model model, @PathVariable int id) {
 		UserEntity user = this.userRepository.findOne(id);
+
+		if (user == null) {
+			return "redirect:/404";
+		}
+
 		model.addAttribute("user", user);
 		return "users/details";
 	}
@@ -62,6 +67,11 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/users/{id}/edit", method = RequestMethod.GET)
 	public String editUser(@PathVariable int id, HttpServletResponse response, Model model) {
 		UserEntity user = this.userRepository.findOne(id);
+
+		if (user == null) {
+			return "redirect:/404";
+		}
+
 		model.addAttribute("user", user);
 
 		if (model.containsAttribute("userForm")) {
@@ -76,13 +86,18 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
 	public String updateUser(@PathVariable Integer id, Model model, @Valid UserForm userForm, BindingResult binding, RedirectAttributes attr) {
+		UserEntity user = this.userRepository.findOne(id);
+
+		if (user == null) {
+			return "redirect:/404";
+		}
+
 		if (binding.hasErrors()) {
 			attr.addFlashAttribute("org.springframework.validation.BindingResult.userForm", binding);
 			attr.addFlashAttribute("userForm", userForm);
 			return String.format("redirect:/users/%d/edit", id);
 		}
 
-		UserEntity user = this.userRepository.findOne(id);
 		user.load(userForm);
 		this.userRepository.save(user);
 

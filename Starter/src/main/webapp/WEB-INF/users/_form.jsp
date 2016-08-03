@@ -67,7 +67,12 @@
 		<div class="form-group">
 			<label for="field-emailAddress" class="control-label col-sm-2">Email Address</label>
 			<div class="col-sm-10">
-				<form:input path="emailAddress" class="form-control" id="field-emailAddress" placeholder="Email Address..." />
+				<div class="input-group">
+					<div class="input-group-addon" title="Required">
+						<span class="glyphicon glyphicon-ok"></span>
+					</div>
+					<form:input path="emailAddress" class="form-control" id="field-emailAddress" placeholder="Email Address..." />
+				</div>
 				<form:errors path="emailAddress" class="field-error-message" />
 			</div>
 		</div>
