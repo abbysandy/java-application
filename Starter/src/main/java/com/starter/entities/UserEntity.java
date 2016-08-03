@@ -18,22 +18,22 @@ public class UserEntity extends BaseEntity {
 	private Integer	id;
 
 	@Column
-	private String	username;
+	private String	userName;
 
 	@Column
 	private String	password;
 
 	@Column
-	private String	firstname;
+	private String	firstName;
 
 	@Column
-	private String	middlename;
+	private String	middleName;
 
 	@Column
-	private String	lastname;
+	private String	lastName;
 
 	@Column
-	private String	email;
+	private String	emailAddress;
 
 	@Column
 	private String	phone;
@@ -48,7 +48,7 @@ public class UserEntity extends BaseEntity {
 	private String	state;
 
 	@Column
-	private String	zipcode;
+	private String	zipCode;
 
 	@Column
 	private String	country;
@@ -63,12 +63,16 @@ public class UserEntity extends BaseEntity {
 		return this.id;
 	}
 
-	public String getUsername() {
-		return this.username;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public String getUserName() {
+		return this.userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {
@@ -79,36 +83,36 @@ public class UserEntity extends BaseEntity {
 		this.password = password;
 	}
 
-	public String getFirstname() {
-		return this.firstname;
+	public String getFirstName() {
+		return this.firstName;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getMiddlename() {
-		return this.middlename;
+	public String getMiddleName() {
+		return this.middleName;
 	}
 
-	public void setMiddlename(String middlename) {
-		this.middlename = middlename;
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
 	}
 
-	public String getLastname() {
-		return this.lastname;
+	public String getLastName() {
+		return this.lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String getEmail() {
-		return this.email;
+	public String getEmailAddress() {
+		return this.emailAddress;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
 
 	public String getPhone() {
@@ -143,12 +147,12 @@ public class UserEntity extends BaseEntity {
 		this.state = state;
 	}
 
-	public String getZipcode() {
-		return this.zipcode;
+	public String getZipCode() {
+		return this.zipCode;
 	}
 
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
 
 	public String getCountry() {

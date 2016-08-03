@@ -1,4 +1,4 @@
-username,password,firstname,middlename,lastname,email,phone,address,city,state,zipcode,country,created_at,updated_at
+user_name,password,first_name,middle_name,last_name,email_address,phone,address,city,state,zip_code,country,created_at,updated_at
 brett1,NULL,Brett,A,Meyer,bmeyer@xpanxion.com,6417778567,319 Beedle Dr,Ames,IA,50014,United States,2016-07-28 12:27:00,2016-07-28 12:27:01
 brett2,NULL,Brett,A,Meyer,bmeyer@xpanxion.com,6417778567,319 Beedle Dr,Ames,IA,50014,United States,2016-07-28 12:27:00,2016-07-28 12:27:01
 brett3,NULL,Brett,A,Meyer,bmeyer@xpanxion.com,6417778567,319 Beedle Dr,Ames,IA,50014,United States,2016-07-28 12:27:00,2016-07-28 12:27:01

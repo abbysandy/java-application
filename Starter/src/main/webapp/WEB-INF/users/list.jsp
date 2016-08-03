@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../layout/header.jsp" %>
 
 <h1>Users</h1>
@@ -17,6 +18,7 @@
 			<th>User Name</th>
 			<th>First Name</th>
 			<th>Last Name</th>
+			<th>Email Address</th>
 			<th>Phone</th>
 			<th>Address</th>
 			<th>City</th>
@@ -32,14 +34,15 @@
 		<c:forEach items="${users}" var="user">
 			<tr data-editable-entity="user" data-editable-url="/api/users/${user.id}">
 				<td>${user.id}</td>
-				<td data-editable-field="username">${user.username}</td>
-				<td data-editable-field="firstname">${user.firstname}</td>
-				<td data-editable-field="lastname">${user.lastname}</td>
+				<td data-editable-field="userName">${user.userName}</td>
+				<td data-editable-field="firstName">${user.firstName}</td>
+				<td data-editable-field="lastName">${user.lastName}</td>
+				<td data-editable-field="emailAddress">${user.emailAddress}</td>
 				<td data-editable-field="phone">${user.phone}</td>
 				<td data-editable-field="address">${user.address}</td>
 				<td data-editable-field="city">${user.city}</td>
 				<td data-editable-field="state">${user.state}</td>
-				<td data-editable-field="zipcode">${user.zipcode}</td>
+				<td data-editable-field="zipcode">${user.zipCode}</td>
 				<td data-editable-field="country">${user.country}</td>
 				<td>
 					<a href="/users/${user.id}" class="btn btn-sm btn-primary">
@@ -50,13 +53,12 @@
 						<span class="glyphicon glyphicon-edit"></span>
 						Edit
 					</a>
-					<form action="/users/${user.id}" method="POST" class="inline">
-						<input type="hidden" name="_method" value="DELETE" />
+					<form:form action="/users/${user.id}" method="DELETE" class="inline">
 						<button class="btn btn-sm btn-danger">
 							<span class="glyphicon glyphicon-trash"></span>
 							Delete
 						</button>
-					</form>
+					</form:form>
 				</td>
 			</tr>
 		</c:forEach>

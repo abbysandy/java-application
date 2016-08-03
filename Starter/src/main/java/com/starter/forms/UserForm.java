@@ -16,24 +16,24 @@ public class UserForm extends BaseForm {
 		BeanUtils.copyProperties(userEntity, this);
 	}
 
-	@NotNull
+	@NotNull(message = "User Name is a required field.")
 	@Size(max = 255)
-	private String	username;
+	private String	userName;
 
-	@NotNull
+	@NotNull(message = "First Name is a required field.")
 	@Size(max = 255)
-	private String	firstname;
+	private String	firstName;
 
 	@Size(max = 255)
-	private String	middlename;
+	private String	middleName;
 
-	@NotNull
+	@NotNull(message = "Last Name is a required field.")
 	@Size(max = 255)
-	private String	lastname;
+	private String	lastName;
 
-	@NotNull
+	@NotNull(message = "Email Address is a required field.")
 	@Size(max = 255)
-	private String	email;
+	private String	emailAddress;
 
 	@Size(max = 255)
 	private String	phone;
@@ -53,48 +53,48 @@ public class UserForm extends BaseForm {
 	@Size(max = 255)
 	private String	country;
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return this.userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public String getFirstName() {
+		return this.firstName;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getMiddlename() {
-		return middlename;
+	public String getMiddleName() {
+		return this.middleName;
 	}
 
-	public void setMiddlename(String middlename) {
-		this.middlename = middlename;
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return this.lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getEmailAddress() {
+		return this.emailAddress;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
 
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
 
 	public void setPhone(String phone) {
@@ -102,7 +102,7 @@ public class UserForm extends BaseForm {
 	}
 
 	public String getAddress() {
-		return address;
+		return this.address;
 	}
 
 	public void setAddress(String address) {
@@ -110,7 +110,7 @@ public class UserForm extends BaseForm {
 	}
 
 	public String getCity() {
-		return city;
+		return this.city;
 	}
 
 	public void setCity(String city) {
@@ -118,7 +118,7 @@ public class UserForm extends BaseForm {
 	}
 
 	public String getState() {
-		return state;
+		return this.state;
 	}
 
 	public void setState(String state) {
@@ -126,7 +126,7 @@ public class UserForm extends BaseForm {
 	}
 
 	public String getZipcode() {
-		return zipcode;
+		return this.zipcode;
 	}
 
 	public void setZipcode(String zipcode) {
@@ -134,7 +134,7 @@ public class UserForm extends BaseForm {
 	}
 
 	public String getCountry() {
-		return country;
+		return this.country;
 	}
 
 	public void setCountry(String country) {

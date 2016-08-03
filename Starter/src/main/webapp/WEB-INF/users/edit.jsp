@@ -1,9 +1,12 @@
 <%@ include file="../layout/header.jsp" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<h1>Edit User</h1>
+<c:set var="action" scope="page" value="Update"/>
 
-<form:form modelAttribute="userForm" action="/users" method="POST" class="form-horizontal">
+<h1>Edit User ${user.firstName} ${user.lastName}</h1>
+
+<form:form modelAttribute="userForm" action="/users/${user.id}" method="PUT" class="form-horizontal">
 	<%@ include file="_form.jsp" %>
 </form:form>
 

@@ -10,16 +10,15 @@
 	<div class="panel-body">
 		
 		<div class="form-group">
-			<label for="field-username" class="control-label col-sm-2">User Name</label>
+			<label for="field-userName" class="control-label col-sm-2">User Name</label>
 			<div class="col-sm-10">
 				<div class="input-group">
 					<div class="input-group-addon" title="Required">
 						<span class="glyphicon glyphicon-ok"></span>
 					</div>
-					<form:input path="username" class="form-control" id="field-username" placeholder="User Name..." autofocus="autofocus" />
+					<form:input path="userName" class="form-control" id="field-userName" placeholder="User Name..." autofocus="autofocus" />
 				</div>
-				<p class="help-block">User name must be unique.</p>
-				<form:errors path="username" class="field-error-message" />
+				<form:errors path="userName" class="field-error-message" />
 			</div>
 		</div>
 
@@ -32,44 +31,44 @@
 	<div class="panel-body">
 		
 		<div class="form-group">
-			<label for="field-firstname" class="control-label col-sm-2">First Name</label>
+			<label for="field-firstName" class="control-label col-sm-2">First Name</label>
 			<div class="col-sm-10">
 				<div class="input-group">
 					<div class="input-group-addon" title="Required">
 						<span class="glyphicon glyphicon-ok"></span>
 					</div>
-					<form:input path="firstname" class="form-control" id="field-firstname" placeholder="First Name..." />
+					<form:input path="firstName" class="form-control" id="field-firstName" placeholder="First Name..." />
 				</div>
-				<form:errors path="firstname" class="field-error-message" />
+				<form:errors path="firstName" class="field-error-message" />
 			</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="field-middlename" class="control-label col-sm-2">Middle Name</label>
+			<label for="field-middleName" class="control-label col-sm-2">Middle Name</label>
 			<div class="col-sm-10">
-				<form:input path="middlename" class="form-control" id="field-middlename" placeholder="Middle Name..." />
-				<form:errors path="middlename" class="field-error-message" />
+				<form:input path="middleName" class="form-control" id="field-middleName" placeholder="Middle Name..." />
+				<form:errors path="middleName" class="field-error-message" />
 			</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="field-lastname" class="control-label col-sm-2">Last Name</label>
+			<label for="field-lastName" class="control-label col-sm-2">Last Name</label>
 			<div class="col-sm-10">
 				<div class="input-group">
 					<div class="input-group-addon" title="Required">
 						<span class="glyphicon glyphicon-ok"></span>
 					</div>
-					<form:input path="lastname" class="form-control" id="field-lastname" placeholder="Last Name..." />
+					<form:input path="lastName" class="form-control" id="field-lastName" placeholder="Last Name..." />
 				</div>
-				<form:errors path="lastname" class="field-error-message" />
+				<form:errors path="lastName" class="field-error-message" />
 			</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="field-email" class="control-label col-sm-2">Email Address</label>
+			<label for="field-emailAddress" class="control-label col-sm-2">Email Address</label>
 			<div class="col-sm-10">
-				<form:input path="email" class="form-control" id="field-email" placeholder="Email Address..." />
-				<form:errors path="email" class="field-error-message" />
+				<form:input path="emailAddress" class="form-control" id="field-emailAddress" placeholder="Email Address..." />
+				<form:errors path="emailAddress" class="field-error-message" />
 			</div>
 		</div>
 		
@@ -135,7 +134,7 @@
 	
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<button class="btn btn-default">Create User</button>
+				<button class="btn btn-default">${action} User</button>
 			</div>
 		</div>
 

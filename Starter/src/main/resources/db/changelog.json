@@ -18,7 +18,7 @@
                         }
                     }, {
                         "column": {
-                            "name": "username",
+                            "name": "user_name",
                             "type": "varchar(255)",
                             "constraints": [{
                                 "unique": true,
@@ -35,7 +35,7 @@
                         }
                     }, {
                         "column": {
-                            "name": "firstname",
+                            "name": "first_name",
                             "type": "varchar(255)",
                             "constraints": [{
                                 "nullable": true
@@ -43,7 +43,7 @@
                         }
                     }, {
                         "column": {
-                            "name": "middlename",
+                            "name": "middle_name",
                             "type": "varchar(255)",
                             "constraints": [{
                                 "nullable": true
@@ -51,7 +51,7 @@
                         }
                     }, {
                         "column": {
-                            "name": "lastname",
+                            "name": "last_name",
                             "type": "varchar(255)",
                             "constraints": [{
                                 "nullable": true
@@ -59,7 +59,7 @@
                         }
                     }, {
                         "column": {
-                            "name": "email",
+                            "name": "email_address",
                             "type": "varchar(255)",
                             "constraints": [{
                                 "nullable": true
@@ -99,7 +99,7 @@
                         }
                     }, {
                         "column": {
-                            "name": "zipcode",
+                            "name": "zip_code",
                             "type": "varchar(255)",
                             "constraints": [{
                                 "nullable": true

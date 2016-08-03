@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.starter.entities.UserEntity;
 import com.starter.forms.UserForm;
@@ -44,8 +45,8 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
-	public String createUser(HttpServletResponse response, Model model, @Valid UserForm userForm, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
+	public String createUser(HttpServletResponse response, Model model, @Valid UserForm userForm, BindingResult binding) {
+		if (binding.hasErrors()) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			model.addAttribute("user", userForm);
 			return "users/new";
@@ -58,9 +59,34 @@ public class UserController extends BaseController {
 		return "redirect:/users";
 	}
 
-	@RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
-	public String editUser(@PathVariable int id) {
-		return "users/form";
+	@RequestMapping(value = "/users/{id}/edit", method = RequestMethod.GET)
+	public String editUser(@PathVariable int id, HttpServletResponse response, Model model) {
+		UserEntity user = this.userRepository.findOne(id);
+		model.addAttribute("user", user);
+
+		if (model.containsAttribute("userForm")) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		} else {
+			UserForm userForm = new UserForm(user);
+			model.addAttribute("userForm", userForm);
+		}
+
+		return "users/edit";
+	}
+
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
+	public String updateUser(@PathVariable Integer id, Model model, @Valid UserForm userForm, BindingResult binding, RedirectAttributes attr) {
+		if (binding.hasErrors()) {
+			attr.addFlashAttribute("org.springframework.validation.BindingResult.userForm", binding);
+			attr.addFlashAttribute("userForm", userForm);
+			return String.format("redirect:/users/%d/edit", id);
+		}
+
+		UserEntity user = this.userRepository.findOne(id);
+		user.load(userForm);
+		this.userRepository.save(user);
+
+		return "redirect:/users";
 	}
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
