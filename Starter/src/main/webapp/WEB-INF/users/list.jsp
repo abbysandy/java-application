@@ -45,19 +45,21 @@
 				<td data-editable-field="zipcode">${user.zipCode}</td>
 				<td data-editable-field="country">${user.country}</td>
 				<td>
-					<a href="/users/${user.id}" class="btn btn-sm btn-primary">
-						<span class="glyphicon glyphicon-eye-open"></span>
-						View
-					</a>
-					<a href="/users/${user.id}/edit" class="btn btn-sm btn-success">
-						<span class="glyphicon glyphicon-edit"></span>
-						Edit
-					</a>
 					<form:form action="/users/${user.id}" method="DELETE" class="inline">
-						<button class="btn btn-sm btn-danger">
-							<span class="glyphicon glyphicon-trash"></span>
-							Delete
-						</button>
+						<div class="btn-group">
+							<a href="/users/${user.id}" class="btn btn-sm btn-primary">
+								<span class="glyphicon glyphicon-eye-open"></span>
+								View
+							</a>
+							<a href="/users/${user.id}/edit" class="btn btn-sm btn-success">
+								<span class="glyphicon glyphicon-edit"></span>
+								Edit
+							</a>
+							<button class="btn btn-sm btn-danger">
+								<span class="glyphicon glyphicon-trash"></span>
+								Delete
+							</button>
+						</div>
 					</form:form>
 				</td>
 			</tr>

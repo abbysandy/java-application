@@ -1,4 +1,4 @@
-package com.starter.apicontrollers;
+package com.starter.controllers.api;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,7 +20,7 @@ import com.starter.forms.UserForm;
 import com.starter.repositories.UserRepository;
 
 @Controller
-public class UserApiController extends BaseApiController {
+public class UserControllerAPI extends BaseControllerAPI {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -45,7 +46,8 @@ public class UserApiController extends BaseApiController {
 			return result;
 		}
 
-		UserForm userForm = new UserForm(user);
+		UserForm userForm = new UserForm();
+		BeanUtils.copyProperties(user, userForm);
 		userForm.setProperty(name, value);
 		BindingResult bindingResult = this.validate(userForm);
 
@@ -55,7 +57,7 @@ public class UserApiController extends BaseApiController {
 			return result;
 		}
 
-		user.load(userForm);
+		BeanUtils.copyProperties(userForm, user);
 		this.userRepository.save(user);
 
 		result.put("user", user);

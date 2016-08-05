@@ -23,7 +23,7 @@
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active">
+						<li>
 							<a href="#">Home</a>
 						</li>
 						<li>
@@ -33,5 +33,6 @@
 				</div>
 			</div>
 		</nav>
-	
+		
 		<div class="container-fluid page-wrap">
+		

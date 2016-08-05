@@ -1,13 +1,11 @@
-package com.starter.apicontrollers;
-
-import javax.servlet.http.HttpServletRequest;
+package com.starter.dao.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.Validator;
 
-public class BaseApiController {
+public class BaseDAOImpl {
 
 	@Autowired
 	private Validator validator;
@@ -17,16 +15,6 @@ public class BaseApiController {
 		binder.setValidator(this.validator);
 		binder.validate();
 		return binder.getBindingResult();
-	}
-
-	public String getParameter(HttpServletRequest request, String name) {
-		String value = request.getParameter(name);
-
-		if (value.trim().isEmpty()) {
-			return null;
-		}
-
-		return value;
 	}
 
 }

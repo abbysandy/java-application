@@ -3,18 +3,7 @@ package com.starter.forms;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.beans.BeanUtils;
-
-import com.starter.entities.UserEntity;
-
 public class UserForm extends BaseForm {
-
-	public UserForm() {
-	}
-
-	public UserForm(UserEntity userEntity) {
-		BeanUtils.copyProperties(userEntity, this);
-	}
 
 	@NotNull(message = "User Name is a required field.")
 	@Size(max = 255)
@@ -48,7 +37,7 @@ public class UserForm extends BaseForm {
 	private String	state;
 
 	@Size(max = 255)
-	private String	zipcode;
+	private String	zipCode;
 
 	@Size(max = 255)
 	private String	country;
@@ -125,12 +114,12 @@ public class UserForm extends BaseForm {
 		this.state = state;
 	}
 
-	public String getZipcode() {
-		return this.zipcode;
+	public String getZipCode() {
+		return this.zipCode;
 	}
 
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
 
 	public String getCountry() {

@@ -120,8 +120,8 @@
 		<div class="form-group">
 			<label for="field-zipcode" class="control-label col-sm-2">Zip Code</label>
 			<div class="col-sm-10">
-				<form:input path="zipcode" class="form-control" id="field-zipcode" placeholder="Zip Code..." />
-				<form:errors path="zipcode" class="field-error-message" />
+				<form:input path="zipCode" class="form-control" id="field-zipcode" placeholder="Zip Code..." />
+				<form:errors path="zipCode" class="field-error-message" />
 			</div>
 		</div>
 		
