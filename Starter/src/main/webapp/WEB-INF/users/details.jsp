@@ -1,5 +1,3 @@
-<%@ include file="../layout/header.jsp" %>
-
 <h1>Users</h1>
 
 <h2>${user.firstname} ${user.lastname}</h2>
@@ -40,7 +38,3 @@
 	<dd>${user.country}</dd>
 	
 </dl>
-
-
-
-<%@ include file="../layout/footer.jsp" %>

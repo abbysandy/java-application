@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ include file="../layout/header.jsp" %>
 
 <h1>Users</h1>
 
@@ -67,5 +66,3 @@
 	
 	</tbody>
 </table>
-
-<%@ include file="../layout/footer.jsp" %>

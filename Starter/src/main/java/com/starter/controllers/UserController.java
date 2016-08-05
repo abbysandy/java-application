@@ -27,7 +27,7 @@ public class UserController extends BaseController {
 	public String listUsers(Model model) {
 		List<UserEntity> users = this.userDAO.select();
 		model.addAttribute("users", users);
-		return "users/list";
+		return "users.list";
 	}
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
@@ -39,13 +39,13 @@ public class UserController extends BaseController {
 		}
 
 		model.addAttribute("user", user);
-		return "users/details";
+		return "users.details";
 	}
 
 	@RequestMapping(value = "/users/new", method = RequestMethod.GET)
 	public String newUser(Model model) {
 		model.addAttribute("userForm", new UserForm());
-		return "users/new";
+		return "users.new";
 	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
@@ -57,7 +57,7 @@ public class UserController extends BaseController {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			model.addAttribute("org.springframework.validation.BindingResult.userForm", bindingResult);
 			model.addAttribute("user", userForm);
-			return "users/new";
+			return "users.new";
 		}
 
 		this.userDAO.create(userForm);
@@ -82,7 +82,7 @@ public class UserController extends BaseController {
 			model.addAttribute("userForm", userForm);
 		}
 
-		return "users/edit";
+		return "users.edit";
 	}
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)

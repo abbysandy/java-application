@@ -1,4 +1,3 @@
-<%@ include file="../layout/header.jsp" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -9,5 +8,3 @@
 <form:form modelAttribute="userForm" action="/users" method="POST" class="form-horizontal">
 	<%@ include file="_form.jsp" %>
 </form:form>
-
-<%@ include file="../layout/footer.jsp" %>

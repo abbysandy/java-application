@@ -1,5 +1,4 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -11,12 +10,19 @@
 		<link rel="stylesheet" href="/assets/stylesheets/all.css" media="screen" />
 	</head>
 	<body>
-
-		<jsp:include page="${partial}"/>
-
+	
+		<tiles:insertAttribute name="navigation" />
+	
+		<div class="container-fluid page-wrap">
+		
+			<tiles:insertAttribute name="body" />
+		
+		</div>
+				
 		<script src="/webjars/jquery/2.2.4/jquery.min.js"></script>
 		<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<script src="/assets/javascripts/all.js"></script>
-
+		<script src="/assets/javascripts/form-errors.js"></script>
+		
 	</body>
 </html>
