@@ -15,22 +15,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.starter.dao.UserDAO;
 import com.starter.entities.UserEntity;
 import com.starter.forms.UserForm;
-import com.starter.repositories.UserRepository;
 
 @Controller
 public class UserControllerAPI extends BaseControllerAPI {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserDAO userDAO;
 
 	@ResponseBody
 	@RequestMapping(value = "/api/users/{id}", method = RequestMethod.PATCH)
 	public Map<String, Object> updateUser(@PathVariable Integer id, HttpServletResponse response, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<>();
 
-		UserEntity user = this.userRepository.findOne(id);
+		UserEntity user = this.userDAO.selectById(id);
 		if (user == null) {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			result.put("message", "invalid id");
@@ -49,7 +49,7 @@ public class UserControllerAPI extends BaseControllerAPI {
 		UserForm userForm = new UserForm();
 		BeanUtils.copyProperties(user, userForm);
 		userForm.setProperty(name, value);
-		BindingResult bindingResult = this.validate(userForm);
+		BindingResult bindingResult = this.userDAO.validate(user, userForm);
 
 		if (bindingResult.hasErrors()) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -57,8 +57,7 @@ public class UserControllerAPI extends BaseControllerAPI {
 			return result;
 		}
 
-		BeanUtils.copyProperties(userForm, user);
-		this.userRepository.save(user);
+		this.userDAO.update(user, userForm);
 
 		result.put("user", user);
 		return result;

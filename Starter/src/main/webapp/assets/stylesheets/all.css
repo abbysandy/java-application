@@ -39,11 +39,22 @@ h1 {
 
 .editable-input {
 	display: inline;
-	width: 200px;
 	height: 30px;
 	display: none;
 }
 
 .editable-display {
-	
+	display: block;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
+
+.editable-help {
+	font-size: 11px;
+}
+
+table {
+	table-layout: fixed;
+}
+

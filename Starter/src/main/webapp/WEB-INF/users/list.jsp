@@ -13,7 +13,7 @@
 <table class="table table-bordered" data-editable="users">
 	<thead>
 		<tr>
-			<th>#</th>
+			<th data-width="40" class="text-center">#</th>
 			<th>User Name</th>
 			<th>First Name</th>
 			<th>Last Name</th>
@@ -21,10 +21,10 @@
 			<th>Phone</th>
 			<th>Address</th>
 			<th>City</th>
-			<th>State</th>
-			<th>Zip Code</th>
+			<th data-width="75">State</th>
+			<th data-width="120">Zip Code</th>
 			<th>Country</th>
-			<th width="219">Actions</th>
+			<th data-width="209">Actions</th>
 		</tr>
 	</thead>
 	
@@ -32,7 +32,7 @@
 	
 		<c:forEach items="${users}" var="user">
 			<tr data-editable-entity="user" data-editable-url="/api/users/${user.id}">
-				<td>${user.id}</td>
+				<td class="text-center">${user.id}</td>
 				<td data-editable-field="userName">${user.userName}</td>
 				<td data-editable-field="firstName">${user.firstName}</td>
 				<td data-editable-field="lastName">${user.lastName}</td>
@@ -41,7 +41,7 @@
 				<td data-editable-field="address">${user.address}</td>
 				<td data-editable-field="city">${user.city}</td>
 				<td data-editable-field="state">${user.state}</td>
-				<td data-editable-field="zipcode">${user.zipCode}</td>
+				<td data-editable-field="zipCode">${user.zipCode}</td>
 				<td data-editable-field="country">${user.country}</td>
 				<td>
 					<form:form action="/users/${user.id}" method="DELETE" class="inline">
