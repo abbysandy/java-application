@@ -6,6 +6,7 @@
 		<put-attribute name="title" value="Spring Web MVC with Tiles 3" />
 		<put-attribute name="navigation" value="/WEB-INF/layout/navigation.jsp" />
 		<put-attribute name="body" value="" />
+		<put-attribute name="navId" value="" cascade="true" />
 	</definition>
 	
 	<definition name="main" extends="layout.basic">
@@ -27,6 +28,19 @@
 	</definition>
 	<definition name="users.new" extends="layout.users">
 		<put-attribute name="body" value="/WEB-INF/users/new.jsp" />
+	</definition>
+	<definition name="users.change-password" extends="layout.users">
+		<put-attribute name="body" value="/WEB-INF/users/change-password.jsp" />
+	</definition>
+	
+	<definition name="errors.400" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/errors/400.jsp" />
+	</definition>
+	<definition name="errors.404" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/errors/404.jsp" />
+	</definition>
+	<definition name="errors.500" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/errors/500.jsp" />
 	</definition>
 	
 </tiles-definitions>

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.starter.dao.UserDAO;
 import com.starter.entities.UserEntity;
 import com.starter.forms.UserForm;
+import com.starter.forms.UserPasswordForm;
 
 @Controller
 public class UserController extends BaseController {
@@ -113,6 +114,24 @@ public class UserController extends BaseController {
 			this.userDAO.delete(user);
 		}
 		return "redirect:/users";
+	}
+
+	@RequestMapping(value = "/users/{id}/change-password", method = RequestMethod.GET)
+	public String changePassword(Model model, @PathVariable int id) {
+		UserEntity user = this.userDAO.selectById(id);
+
+		if (user == null) {
+			return "redirect:/404";
+		}
+
+		model.addAttribute("user", user);
+		model.addAttribute("userForm", new UserPasswordForm());
+		return "users.change-password";
+	}
+
+	@RequestMapping(value = "/users/{id}/change-password", method = RequestMethod.POST)
+	public String updatePassword(Model model, @PathVariable int id) {
+		return "redirect:/";
 	}
 
 }

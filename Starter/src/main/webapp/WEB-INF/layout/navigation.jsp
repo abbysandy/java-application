@@ -15,6 +15,7 @@
 			<a class="navbar-brand" href="/">Starter Project</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
+			
 			<ul class="nav navbar-nav">
 				<li <c:if test="${navId eq 'main'}">class="active"</c:if>>
 					<a href="/">Home</a>
@@ -23,6 +24,24 @@
 					<a href="/users">Users</a>
 				</li>
 			</ul>
+			
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
+						My Account
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li class="dropdown-header">Brett Meyer</li>
+						<li><a href="/users/1/change-password">Change Password</a></li>
+						<li class="divider" role="separator"></li>
+						<li class="dropdown-header">Authentication</li>
+						<li><a href="/login">Login</a></li>
+						<li><a href="/logout">Logout</a></li>
+					</ul>
+				</li>
+			</ul>
+			
 		</div>
 	</div>
 </nav>
