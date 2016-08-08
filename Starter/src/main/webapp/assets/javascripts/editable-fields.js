@@ -1,5 +1,97 @@
 $(function(){
 	
+	var form = '<form class="editable-form form-inline">';
+		form += '<div class="form-group">';
+			form += '<input type="text" class="form-control editable-input" />';
+			form += '<button type="submit" class="btn btn-primary editable-save">';
+				form += '<span class="glyphicon glyphicon-ok"></span>';
+			form += '</button>';
+			form += '<button type="button" class="btn btn-default editable-cancel">';
+				form += '<span class="glyphicon glyphicon-remove"></span>';
+			form += '</button>';
+		form += '</div>';
+	form += '</form>';
+
+	var form = $(form);
+	$("body").append(form);
+	
+	form.find(".editable-cancel").on("click", function(){
+		$(".editable-field").removeClass("editing");
+		form.hide();
+	});
+	
+	form.on("submit", function(){
+		
+		var input = $(this).find(".editable-input");
+		
+		var data = {
+			name: input.attr("name"),
+			value: input.val()
+		};
+		
+		$.ajax({
+			url: form.attr("action"),
+			method: "PATCH",
+			data: data
+		}).success(function(response){
+			$(".editable-field").removeClass("editing");
+			form.hide();
+		}).error(function(response){
+			console.log(response.responseJSON);
+		});
+		
+		return false;
+	});
+	
+	jQuery.fn.extend({
+		edit: function(){
+			
+			var source = $(this).addClass("editing");
+			
+			form.show();
+			
+			form.css({
+				"top": source.position().top + 24,
+				"left": source.position().left + 32
+			});
+			
+			form.attr("action", source.data("editable-url"));
+			
+			var input = form.find(".editable-input");
+			input.attr("name", source.data("editable-field"));
+			input.val(source.data("editable-value")).focus();
+		}
+	});
+	
+	var display = $("<span />").addClass("editable-display");
+	
+	$("[data-editable]").find("[data-editable-entity]").each(function(){
+		
+		var entity = $(this);
+		
+		entity.find("[data-editable-field]").each(function(){
+			var field = $(this);
+			var value = field.html();
+			
+			field.addClass("editable-field");
+			field.html(display.clone().html(value));
+			field.attr("data-editable-entity", entity.data("editable-entity"));
+			field.attr("data-editable-url", entity.data("editable-url"));
+			field.attr("data-editable-value", value);
+			field.on("click", field.edit);
+		});
+	});
+		
+	
+	var enterPress = function(e){
+		return e.keyCode == KEYCODES.ENTER;
+	};
+	
+	var escPress = function(e){
+		return e.keyCode == KEYCODES.ESC;
+	};
+	
+	/*
 	var enterPress = function(e){
 		return e.keyCode == KEYCODES.ENTER;
 	};
@@ -96,6 +188,7 @@ $(function(){
 			field.enableEditable();
 		});
 	});
+	*/
 	
 });
 

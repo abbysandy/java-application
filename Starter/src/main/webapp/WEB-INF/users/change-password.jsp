@@ -1,6 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<form:form modelAttribute="userForm" action="/users/1/change-password" method="POST" class="form-horizontal">
+<form:form modelAttribute="userPasswordForm" action="/users/1/change-password" method="PATCH" class="form-horizontal">
 	
 	<div class="panel panel-default">
 	

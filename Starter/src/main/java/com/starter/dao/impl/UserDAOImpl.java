@@ -11,6 +11,7 @@ import org.springframework.validation.FieldError;
 import com.starter.dao.UserDAO;
 import com.starter.entities.UserEntity;
 import com.starter.forms.UserForm;
+import com.starter.forms.UserPasswordForm;
 import com.starter.repositories.UserRepository;
 
 @Repository
@@ -40,10 +41,15 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public Object edit(UserEntity user) {
-		UserForm userForm = new UserForm();
-		BeanUtils.copyProperties(user, userForm);
-		return userForm;
+	public Object edit(UserEntity user, Class<?> clazz) {
+		try {
+			Object form = clazz.newInstance();
+			BeanUtils.copyProperties(user, form);
+			return form;
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
@@ -58,8 +64,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public BindingResult validate(UserEntity user, Object form) {
-		UserForm userForm = (UserForm) form;
+	public BindingResult validate(UserEntity user, UserForm userForm) {
 		BindingResult bindingResult = super.validate(userForm);
 
 		if (userForm.getUserName() != null) {
@@ -71,6 +76,17 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 			}
 		}
 
+		return bindingResult;
+	}
+
+	@Override
+	public BindingResult validate(UserPasswordForm userPasswordForm) {
+		BindingResult bindingResult = super.validate(userPasswordForm);
+		if (userPasswordForm.getPassword() != null && userPasswordForm.getConfirmPassword() != null) {
+			if (!userPasswordForm.getPassword().equals(userPasswordForm.getConfirmPassword())) {
+				bindingResult.addError(new FieldError("userPasswordForm", "password", null, false, null, null, "Passwords must match."));
+			}
+		}
 		return bindingResult;
 	}
 

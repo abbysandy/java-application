@@ -79,7 +79,7 @@ public class UserController extends BaseController {
 		if (model.containsAttribute("userForm")) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		} else {
-			UserForm userForm = (UserForm) this.userDAO.edit(user);
+			UserForm userForm = (UserForm) this.userDAO.edit(user, UserForm.class);
 			model.addAttribute("userForm", userForm);
 		}
 
@@ -117,7 +117,7 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/users/{id}/change-password", method = RequestMethod.GET)
-	public String changePassword(Model model, @PathVariable int id) {
+	public String changePassword(@PathVariable int id, HttpServletResponse response, Model model) {
 		UserEntity user = this.userDAO.selectById(id);
 
 		if (user == null) {
@@ -125,13 +125,36 @@ public class UserController extends BaseController {
 		}
 
 		model.addAttribute("user", user);
-		model.addAttribute("userForm", new UserPasswordForm());
+
+		if (model.containsAttribute("userPasswordForm")) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		} else {
+			UserPasswordForm userPasswordForm = (UserPasswordForm) this.userDAO.edit(user, UserPasswordForm.class);
+			model.addAttribute("userPasswordForm", userPasswordForm);
+		}
+
 		return "users.change-password";
 	}
 
-	@RequestMapping(value = "/users/{id}/change-password", method = RequestMethod.POST)
-	public String updatePassword(Model model, @PathVariable int id) {
-		return "redirect:/";
+	@RequestMapping(value = "/users/{id}/change-password", method = RequestMethod.PATCH)
+	public String updatePassword(@PathVariable Integer id, Model model, UserPasswordForm userPasswordForm, RedirectAttributes attr) {
+		UserEntity user = this.userDAO.selectById(id);
+
+		if (user == null) {
+			return "redirect:/404";
+		}
+
+		BindingResult bindingResult = this.userDAO.validate(userPasswordForm);
+
+		if (bindingResult.hasErrors()) {
+			attr.addFlashAttribute("org.springframework.validation.BindingResult.userPasswordForm", bindingResult);
+			attr.addFlashAttribute("userPasswordForm", userPasswordForm);
+			return String.format("redirect:/users/%d/change-password", id);
+		}
+
+		this.userDAO.update(user, userPasswordForm);
+
+		return "redirect:/users";
 	}
 
 }
