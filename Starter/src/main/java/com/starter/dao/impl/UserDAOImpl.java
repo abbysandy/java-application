@@ -32,6 +32,11 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 	}
 
 	@Override
+	public UserEntity selectByUserName(String userName) {
+		return this.userRepository.findByUserName(userName);
+	}
+
+	@Override
 	public UserEntity newEntity() {
 		return new UserEntity();
 	}

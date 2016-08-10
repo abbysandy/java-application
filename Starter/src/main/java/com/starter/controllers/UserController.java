@@ -1,5 +1,6 @@
 package com.starter.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -120,9 +121,9 @@ public class UserController extends BaseController {
 		return "redirect:/users";
 	}
 
-	@RequestMapping(value = "/users/{id}/change-password", method = RequestMethod.GET)
-	public String changePassword(@PathVariable int id, HttpServletResponse response, Model model) {
-		UserEntity user = this.userDAO.selectById(id);
+	@RequestMapping(value = "/users/change-password", method = RequestMethod.GET)
+	public String changePassword(Principal principal, HttpServletResponse response, Model model) {
+		UserEntity user = this.userDAO.selectByUserName(principal.getName());
 
 		if (user == null) {
 			return "redirect:/404";
@@ -140,9 +141,9 @@ public class UserController extends BaseController {
 		return "users.change-password";
 	}
 
-	@RequestMapping(value = "/users/{id}/change-password", method = RequestMethod.PATCH)
-	public String updatePassword(@PathVariable Integer id, Model model, UserPasswordForm userPasswordForm, RedirectAttributes attr) {
-		UserEntity user = this.userDAO.selectById(id);
+	@RequestMapping(value = "/users/change-password", method = RequestMethod.PATCH)
+	public String updatePassword(Principal principal, Model model, UserPasswordForm userPasswordForm, RedirectAttributes attr) {
+		UserEntity user = this.userDAO.selectByUserName(principal.getName());
 
 		if (user == null) {
 			return "redirect:/404";
@@ -153,7 +154,7 @@ public class UserController extends BaseController {
 		if (bindingResult.hasErrors()) {
 			attr.addFlashAttribute("org.springframework.validation.BindingResult.userPasswordForm", bindingResult);
 			attr.addFlashAttribute("userPasswordForm", userPasswordForm);
-			return String.format("redirect:/users/%d/change-password", id);
+			return "redirect:/users/change-password";
 		}
 
 		userPasswordForm.setPassword(this.passwordEncoder.encode(userPasswordForm.getPassword()));

@@ -39,7 +39,7 @@
 					
 					<ul class="dropdown-menu">
 						<li class="dropdown-header">Brett Meyer</li>
-						<li><a href="/users/1/change-password">Change Password</a></li>
+						<li><a href="/users/change-password">Change Password</a></li>
 						<li class="divider" role="separator"></li>
 						<li class="dropdown-header">Authentication</li>
 						<li>
