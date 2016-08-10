@@ -16,7 +16,7 @@ import com.starter.forms.UserAuthenticationForm;
 import com.starter.forms.UserRegistrationForm;
 
 @Controller
-public class AuthenticationController {
+public class AuthenticationController extends BaseController {
 
 	@Autowired
 	private UserDAO			userDAO;
