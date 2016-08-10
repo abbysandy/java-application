@@ -8,18 +8,13 @@
 		<title>Starter Project</title>
 		<link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css" media="screen" />
 		<link rel="stylesheet" href="/assets/stylesheets/all.css" media="screen" />
+		<link rel="stylesheet" href="/assets/stylesheets/authentication.css" media="screen" />
 		<link rel="stylesheet" href="/assets/stylesheets/editable-form.css" media="screen" />
 	</head>
 	<body>
 	
-		<tiles:insertAttribute name="navigation" />
+		<tiles:insertAttribute name="layout" />
 	
-		<div class="container-fluid page-wrap">
-		
-			<tiles:insertAttribute name="body" />
-		
-		</div>
-		
 		<script src="/webjars/jquery/2.2.4/jquery.min.js"></script>
 		<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<script src="/assets/javascripts/all.js"></script>

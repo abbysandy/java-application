@@ -10,6 +10,20 @@ h1 {
 	margin-bottom: 0;
 }
 
+.navbar .btn-link {
+	padding: 3px 20px;
+	color: #333;
+	display: block;
+	width: 100%;
+	text-align: left;
+}
+
+.navbar .btn-link:hover {
+	text-decoration: none;
+	background-color: #f5f5f5;
+    color: #262626;
+}
+
 .page-wrap {
 	padding-top: 15px;
 	padding-bottom: 15px;

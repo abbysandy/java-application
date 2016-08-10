@@ -1,23 +1,24 @@
+
 <h1>Users</h1>
 
-<h2>${user.firstname} ${user.lastname}</h2>
+<h2>${user.firstName} ${user.lastName}</h2>
 
 <dl class="dl-horizontal">
 
 	<dt>Username:</dt>
-	<dd>${user.username}</dd>
+	<dd>${user.userName}</dd>
 	
 	<dt>First Name:</dt>
-	<dd>${user.firstname}</dd>
+	<dd>${user.firstName}</dd>
 	
 	<dt>Middle Name:</dt>
-	<dd>${user.middlename}</dd>
+	<dd>${user.middleName}</dd>
 	
 	<dt>Last Name:</dt>
-	<dd>${user.lastname}</dd>
+	<dd>${user.lastName}</dd>
 	
-	<dt>Email:</dt>
-	<dd>${user.email}</dd>
+	<dt>Email Address:</dt>
+	<dd>${user.emailAddress}</dd>
 	
 	<dt>Phone:</dt>
 	<dd>${user.phone}</dd>
@@ -32,7 +33,7 @@
 	<dd>${user.state}</dd>
 	
 	<dt>Zip Code:</dt>
-	<dd>${user.zipcode}</dd>
+	<dd>${user.zipCode}</dd>
 	
 	<dt>Country:</dt>
 	<dd>${user.country}</dd>

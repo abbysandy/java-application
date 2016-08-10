@@ -18,7 +18,6 @@ import com.starter.dao.UserDAO;
 import com.starter.entities.UserEntity;
 import com.starter.forms.UserForm;
 import com.starter.forms.UserPasswordForm;
-import com.starter.forms.UserRegistrationForm;
 
 @Controller
 public class UserController extends BaseController {
@@ -118,29 +117,6 @@ public class UserController extends BaseController {
 		if (user != null) {
 			this.userDAO.delete(user);
 		}
-		return "redirect:/users";
-	}
-
-	@RequestMapping(value = "/users/registration", method = RequestMethod.GET)
-	public String registration(Model model) {
-		model.addAttribute("userRegistrationForm", new UserRegistrationForm());
-		return "users.registration";
-	}
-
-	@RequestMapping(value = "/users/registration", method = RequestMethod.POST)
-	public String register(HttpServletResponse response, Model model, UserRegistrationForm userRegistrationForm, RedirectAttributes attr) {
-		BindingResult bindingResult = this.userDAO.validate(userRegistrationForm);
-
-		if (bindingResult.hasErrors()) {
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			model.addAttribute("org.springframework.validation.BindingResult.userRegistrationForm", bindingResult);
-			model.addAttribute("userRegistrationForm", userRegistrationForm);
-			return "users.registration";
-		}
-
-		userRegistrationForm.setPassword(this.passwordEncoder.encode(userRegistrationForm.getPassword()));
-		this.userDAO.create(userRegistrationForm);
-
 		return "redirect:/users";
 	}
 

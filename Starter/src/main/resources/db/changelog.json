@@ -140,7 +140,7 @@
             "changes": [{
                 "loadData": {
                     "tableName": "users",
-                    "file": "db/users.csv",
+                    "file": "db/data/users.csv",
                     "quotchar": "\""
                 }
             }]

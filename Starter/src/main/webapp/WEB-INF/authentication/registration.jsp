@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <form:errors path="*" class="form-errors hidden" />
 
-<h1>User Registration</h1>
-
 <form:form modelAttribute="userRegistrationForm" action="/users/registration" method="POST" class="form-horizontal">
 	
 	<div class="panel panel-default">

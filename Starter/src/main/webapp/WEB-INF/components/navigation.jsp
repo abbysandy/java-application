@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="navId"><tiles:getAsString name="navId" /></c:set>
 
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -22,18 +22,8 @@
 					<a href="/">Home</a>
 				</li>
 				
-				<li class="dropdown <c:if test="${navId eq 'users'}">active</c:if>">
-					
-					<a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
-						Users
-						<span class="caret"></span>
-					</a>
-					
-					<ul class="dropdown-menu">
-						<li><a href="/users">View Users</a></li>
-						<li><a href="/users/registration">Register User</a></li>
-					</ul>
-					
+				<li <c:if test="${navId eq 'users'}">class="active"</c:if>>
+					<a href="/users">Users</a>
 				</li>
 				
 			</ul>
@@ -52,8 +42,12 @@
 						<li><a href="/users/1/change-password">Change Password</a></li>
 						<li class="divider" role="separator"></li>
 						<li class="dropdown-header">Authentication</li>
-						<li><a href="/login">Login</a></li>
-						<li><a href="/logout">Logout</a></li>
+						<li>
+							<form:form id="" action="/logout">
+								<button class="btn btn-link">Logout</button>
+							</form:form>
+						</li>
+						
 					</ul>
 					
 				</li>
