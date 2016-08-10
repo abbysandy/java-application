@@ -18,6 +18,7 @@
 		<put-attribute name="navId" value="users" cascade="true" />
 	</definition>
 	<definition name="users.list" extends="layout.users">
+		<put-attribute name="editable-form" value="/WEB-INF/layout/editable-form.jsp" cascade="true" />
 		<put-attribute name="body" value="/WEB-INF/users/list.jsp" />
 	</definition>
 	<definition name="users.details" extends="layout.users">
@@ -31,6 +32,9 @@
 	</definition>
 	<definition name="users.change-password" extends="layout.users">
 		<put-attribute name="body" value="/WEB-INF/users/change-password.jsp" />
+	</definition>
+	<definition name="users.registration" extends="layout.users">
+		<put-attribute name="body" value="/WEB-INF/users/registration.jsp" />
 	</definition>
 	
 	<definition name="errors.400" extends="layout.basic">

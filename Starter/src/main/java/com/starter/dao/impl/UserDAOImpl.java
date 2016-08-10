@@ -12,6 +12,7 @@ import com.starter.dao.UserDAO;
 import com.starter.entities.UserEntity;
 import com.starter.forms.UserForm;
 import com.starter.forms.UserPasswordForm;
+import com.starter.forms.UserRegistrationForm;
 import com.starter.repositories.UserRepository;
 
 @Repository
@@ -82,11 +83,33 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 	@Override
 	public BindingResult validate(UserPasswordForm userPasswordForm) {
 		BindingResult bindingResult = super.validate(userPasswordForm);
+
 		if (userPasswordForm.getPassword() != null && userPasswordForm.getConfirmPassword() != null) {
 			if (!userPasswordForm.getPassword().equals(userPasswordForm.getConfirmPassword())) {
 				bindingResult.addError(new FieldError("userPasswordForm", "password", null, false, null, null, "Passwords must match."));
 			}
 		}
+
+		return bindingResult;
+	}
+
+	@Override
+	public BindingResult validate(UserRegistrationForm userRegistrationForm) {
+		BindingResult bindingResult = super.validate(userRegistrationForm);
+
+		if (userRegistrationForm.getUserName() != null) {
+			UserEntity userByUserName = this.userRepository.findByUserName(userRegistrationForm.getUserName());
+			if (userByUserName != null) {
+				bindingResult.addError(new FieldError("userRegistrationForm", "userName", userRegistrationForm.getUserName(), false, null, null, "User Name must be be unique."));
+			}
+		}
+
+		if (userRegistrationForm.getPassword() != null && userRegistrationForm.getConfirmPassword() != null) {
+			if (!userRegistrationForm.getPassword().equals(userRegistrationForm.getConfirmPassword())) {
+				bindingResult.addError(new FieldError("userRegistrationForm", "password", null, false, null, null, "Passwords must match."));
+			}
+		}
+
 		return bindingResult;
 	}
 

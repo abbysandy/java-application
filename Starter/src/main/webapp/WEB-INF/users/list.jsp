@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
 <h1>Users</h1>
 
@@ -66,3 +67,5 @@
 	
 	</tbody>
 </table>
+
+<tiles:insertAttribute name="editable-form" />

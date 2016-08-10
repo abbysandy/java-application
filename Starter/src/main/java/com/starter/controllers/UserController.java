@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,22 +18,26 @@ import com.starter.dao.UserDAO;
 import com.starter.entities.UserEntity;
 import com.starter.forms.UserForm;
 import com.starter.forms.UserPasswordForm;
+import com.starter.forms.UserRegistrationForm;
 
 @Controller
 public class UserController extends BaseController {
 
 	@Autowired
-	private UserDAO userDAO;
+	private UserDAO			userDAO;
+
+	@Autowired
+	private PasswordEncoder	passwordEncoder;
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public String listUsers(Model model) {
+	public String list(Model model) {
 		List<UserEntity> users = this.userDAO.select();
 		model.addAttribute("users", users);
 		return "users.list";
 	}
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-	public String detailsUser(Model model, @PathVariable int id) {
+	public String details(Model model, @PathVariable int id) {
 		UserEntity user = this.userDAO.selectById(id);
 
 		if (user == null) {
@@ -67,7 +72,7 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/users/{id}/edit", method = RequestMethod.GET)
-	public String editUser(@PathVariable int id, HttpServletResponse response, Model model) {
+	public String edit(@PathVariable int id, HttpServletResponse response, Model model) {
 		UserEntity user = this.userDAO.selectById(id);
 
 		if (user == null) {
@@ -87,7 +92,7 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
-	public String updateUser(@PathVariable Integer id, Model model, UserForm userForm, RedirectAttributes attr) {
+	public String update(@PathVariable Integer id, Model model, UserForm userForm, RedirectAttributes attr) {
 		UserEntity user = this.userDAO.selectById(id);
 
 		if (user == null) {
@@ -108,11 +113,34 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
-	public String deleteUser(@PathVariable int id) {
+	public String delete(@PathVariable int id) {
 		UserEntity user = this.userDAO.selectById(id);
 		if (user != null) {
 			this.userDAO.delete(user);
 		}
+		return "redirect:/users";
+	}
+
+	@RequestMapping(value = "/users/registration", method = RequestMethod.GET)
+	public String registration(Model model) {
+		model.addAttribute("userRegistrationForm", new UserRegistrationForm());
+		return "users.registration";
+	}
+
+	@RequestMapping(value = "/users/registration", method = RequestMethod.POST)
+	public String register(HttpServletResponse response, Model model, UserRegistrationForm userRegistrationForm, RedirectAttributes attr) {
+		BindingResult bindingResult = this.userDAO.validate(userRegistrationForm);
+
+		if (bindingResult.hasErrors()) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			model.addAttribute("org.springframework.validation.BindingResult.userRegistrationForm", bindingResult);
+			model.addAttribute("userRegistrationForm", userRegistrationForm);
+			return "users.registration";
+		}
+
+		userRegistrationForm.setPassword(this.passwordEncoder.encode(userRegistrationForm.getPassword()));
+		this.userDAO.create(userRegistrationForm);
+
 		return "redirect:/users";
 	}
 
@@ -152,6 +180,7 @@ public class UserController extends BaseController {
 			return String.format("redirect:/users/%d/change-password", id);
 		}
 
+		userPasswordForm.setPassword(this.passwordEncoder.encode(userPasswordForm.getPassword()));
 		this.userDAO.update(user, userPasswordForm);
 
 		return "redirect:/users";
