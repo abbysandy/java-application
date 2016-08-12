@@ -9,6 +9,8 @@ import com.starter.forms.UserRegistrationForm;
 
 public interface UserDAO extends BaseDAO<UserEntity> {
 
+	UserEntity getCurrentUser();
+
 	UserEntity selectByUserName(String userName);
 
 	BindingResult validate(UserEntity user, UserForm userForm);

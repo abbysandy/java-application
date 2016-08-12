@@ -1,6 +1,5 @@
 package com.starter.controllers;
 
-import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -122,8 +121,8 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/users/change-password", method = RequestMethod.GET)
-	public String changePassword(Principal principal, HttpServletResponse response, Model model) {
-		UserEntity user = this.userDAO.selectByUserName(principal.getName());
+	public String changePassword(HttpServletResponse response, Model model) {
+		UserEntity user = this.userDAO.getCurrentUser();
 
 		if (user == null) {
 			return "redirect:/404";
@@ -142,8 +141,8 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/users/change-password", method = RequestMethod.PATCH)
-	public String updatePassword(Principal principal, Model model, UserPasswordForm userPasswordForm, RedirectAttributes attr) {
-		UserEntity user = this.userDAO.selectByUserName(principal.getName());
+	public String updatePassword(Model model, UserPasswordForm userPasswordForm, RedirectAttributes attr) {
+		UserEntity user = this.userDAO.getCurrentUser();
 
 		if (user == null) {
 			return "redirect:/404";

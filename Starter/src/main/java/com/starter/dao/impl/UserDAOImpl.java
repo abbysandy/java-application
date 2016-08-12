@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -116,6 +119,16 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		}
 
 		return bindingResult;
+	}
+
+	@Override
+	public UserEntity getCurrentUser() {
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		if (authentication == null) {
+			return null;
+		}
+		return this.selectByUserName(authentication.getName());
 	}
 
 }
