@@ -24,8 +24,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
 		JdbcUserDetailsManagerConfigurer<AuthenticationManagerBuilder> jdbcAuthenticatedDataSource = auth.jdbcAuthentication().dataSource(this.dataSource).passwordEncoder(this.passwordEncoder);
-		jdbcAuthenticatedDataSource.usersByUsernameQuery("SELECT user_name, password, 1 as enabled FROM users WHERE user_name = ?");
-		jdbcAuthenticatedDataSource.authoritiesByUsernameQuery("SELECT user_name, 'ROLE_ADMIN' AS role, 1 as enabled FROM users WHERE user_name = ?");
+		jdbcAuthenticatedDataSource.usersByUsernameQuery("SELECT user_name, password, enabled FROM users WHERE user_name = ?");
+		jdbcAuthenticatedDataSource.authoritiesByUsernameQuery("SELECT user_name, 'ROLE_ADMIN' AS role, enabled FROM users WHERE user_name = ?");
 	}
 
 	@Override
@@ -33,7 +33,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		httpSecurity.authorizeRequests().antMatchers("/login", "/registration", "/webjars/**", "/assets/**").permitAll().anyRequest().authenticated();
 		httpSecurity.formLogin().loginPage("/login").failureUrl("/login?error").usernameParameter("userName").passwordParameter("password");
 		httpSecurity.logout().logoutUrl("/logout").logoutSuccessUrl("/login?logout");
-		// httpSecurity.csrf();
 	}
 
 }

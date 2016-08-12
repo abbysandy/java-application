@@ -145,5 +145,80 @@
                 }
             }]
         }
+    }, {
+        "changeSet": {
+            "id": "enabled-users",
+            "author": "brettmeyer",
+            "changes": [{
+                "addColumn": {
+                    "tableName": "users",
+                    "columns": [{
+                        "column": {
+                            "name": "enabled",
+                            "type": "tinyint",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }]
+                },
+                "update": {
+                      "tableName": "users",
+                    "columns": [{
+                        "column": {
+                            "name": "enabled",
+                            "value": 1
+                        }
+                    }]
+                }
+            }]
+        }
+    }, {
+        "changeSet": {
+            "id": "audit-info",
+            "author": "brettmeyer",
+            "changes": [{
+                "addColumn": {
+                    "tableName": "users",
+                    "columns": [{
+                        "column": {
+                            "name": "created_by_id",
+                            "type": "int(11)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "updated_by_id",
+                            "type": "int(11)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }]
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "users",
+                    "baseColumnNames": "created_by_id",
+                    "constraintName": "fk_created_by_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "users",
+                    "baseColumnNames": "updated_by_id",
+                    "constraintName": "fk_updated_by_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }]
+        }
     }]
 }

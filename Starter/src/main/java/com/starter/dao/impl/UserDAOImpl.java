@@ -1,5 +1,6 @@
 package com.starter.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -45,8 +46,11 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void create(Object form) {
-		this.update(new UserEntity(), form);
+	public UserEntity create(Object form) {
+		UserEntity user = new UserEntity();
+		user.setCreatedAt(new Date());
+		user.setCreatedBy(this.getCurrentUser());
+		return this.update(user, form);
 	}
 
 	@Override
@@ -62,9 +66,13 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void update(UserEntity user, Object form) {
-		BeanUtils.copyProperties(form, user);
-		this.userRepository.save(user);
+	public UserEntity update(UserEntity user, Object form) {
+		if (form != null) {
+			BeanUtils.copyProperties(form, user);
+		}
+		user.setUpdatedAt(new Date());
+		user.setUpdatedBy(this.getCurrentUser());
+		return this.userRepository.save(user);
 	}
 
 	@Override

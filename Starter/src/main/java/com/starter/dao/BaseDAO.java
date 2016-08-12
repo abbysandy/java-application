@@ -10,11 +10,11 @@ public interface BaseDAO<T> {
 
 	public T newEntity();
 
-	public void create(Object form);
+	public T create(Object form);
 
 	public Object edit(T entity, Class<?> clazz);
 
-	public void update(T entity, Object form);
+	public T update(T entity, Object form);
 
 	public void delete(T entity);
 
