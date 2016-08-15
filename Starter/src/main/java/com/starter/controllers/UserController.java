@@ -3,12 +3,16 @@ package com.starter.controllers;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,15 +22,33 @@ import com.starter.dao.UserDAO;
 import com.starter.entities.UserEntity;
 import com.starter.forms.UserForm;
 import com.starter.forms.UserPasswordForm;
+import com.starter.validators.ConfirmPasswordValidator;
+import com.starter.validators.UserNameAvailableValidator;
 
 @Controller
 public class UserController extends BaseController {
 
 	@Autowired
-	private UserDAO			userDAO;
+	private UserDAO						userDAO;
 
 	@Autowired
-	private PasswordEncoder	passwordEncoder;
+	private PasswordEncoder				passwordEncoder;
+
+	@Autowired
+	private UserNameAvailableValidator	userNameAvailableValidator;
+
+	@Autowired
+	private ConfirmPasswordValidator	confirmPasswordValidator;
+
+	@InitBinder("UserNameAvailableValidator")
+	public void initUserNameAvailableValidatorBinder(WebDataBinder binder) {
+		binder.addValidators(this.userNameAvailableValidator);
+	}
+
+	@InitBinder("ConfirmPasswordValidator")
+	public void initConfirmPasswordValidatorBinder(WebDataBinder binder) {
+		binder.addValidators(this.confirmPasswordValidator);
+	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String list(Model model) {
@@ -54,13 +76,11 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
-	public String createUser(HttpServletResponse response, Model model, UserForm userForm, RedirectAttributes attr) {
+	public String createUser(HttpServletResponse response, Model model, @Valid @ModelAttribute("UserNameAvailableValidator") UserForm userForm, BindingResult binding, RedirectAttributes attr) {
 
-		BindingResult bindingResult = this.userDAO.validate(null, userForm);
-
-		if (bindingResult.hasErrors()) {
+		if (binding.hasErrors()) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			model.addAttribute("org.springframework.validation.BindingResult.userForm", bindingResult);
+			model.addAttribute("org.springframework.validation.BindingResult.userForm", binding);
 			model.addAttribute("user", userForm);
 			return "users.new";
 		}
@@ -91,17 +111,15 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
-	public String update(@PathVariable Integer id, Model model, UserForm userForm, RedirectAttributes attr) {
+	public String update(@PathVariable Integer id, Model model, @Valid @ModelAttribute("UserNameAvailableValidator") UserForm userForm, BindingResult binding, RedirectAttributes attr) {
 		UserEntity user = this.userDAO.selectById(id);
 
 		if (user == null) {
 			return "redirect:/404";
 		}
 
-		BindingResult bindingResult = this.userDAO.validate(user, userForm);
-
-		if (bindingResult.hasErrors()) {
-			attr.addFlashAttribute("org.springframework.validation.BindingResult.userForm", bindingResult);
+		if (binding.hasErrors()) {
+			attr.addFlashAttribute("org.springframework.validation.BindingResult.userForm", binding);
 			attr.addFlashAttribute("userForm", userForm);
 			return String.format("redirect:/users/%d/edit", id);
 		}
@@ -141,17 +159,15 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/users/change-password", method = RequestMethod.PATCH)
-	public String updatePassword(Model model, UserPasswordForm userPasswordForm, RedirectAttributes attr) {
+	public String updatePassword(Model model, @Valid @ModelAttribute("ConfirmPasswordValidator") UserPasswordForm userPasswordForm, BindingResult binding, RedirectAttributes attr) {
 		UserEntity user = this.userDAO.getCurrentUser();
 
 		if (user == null) {
 			return "redirect:/404";
 		}
 
-		BindingResult bindingResult = this.userDAO.validate(userPasswordForm);
-
-		if (bindingResult.hasErrors()) {
-			attr.addFlashAttribute("org.springframework.validation.BindingResult.userPasswordForm", bindingResult);
+		if (binding.hasErrors()) {
+			attr.addFlashAttribute("org.springframework.validation.BindingResult.userPasswordForm", binding);
 			attr.addFlashAttribute("userPasswordForm", userPasswordForm);
 			return "redirect:/users/change-password";
 		}

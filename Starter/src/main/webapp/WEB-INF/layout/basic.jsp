@@ -7,3 +7,5 @@
 	<tiles:insertAttribute name="body" />
 
 </div>
+
+<tiles:insertAttribute name="component" />

@@ -5,6 +5,8 @@ import javax.validation.constraints.Size;
 
 public class UserForm extends BaseForm {
 
+	private Integer	id;
+
 	@NotNull(message = "User Name is a required field.")
 	@Size(max = 255)
 	private String	userName;
@@ -41,6 +43,14 @@ public class UserForm extends BaseForm {
 
 	@Size(max = 255)
 	private String	country;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getUserName() {
 		return this.userName;

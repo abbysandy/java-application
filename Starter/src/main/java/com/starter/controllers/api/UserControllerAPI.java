@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.DataBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,12 +19,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.starter.dao.UserDAO;
 import com.starter.entities.UserEntity;
 import com.starter.forms.UserForm;
+import com.starter.validators.UserNameAvailableValidator;
 
 @Controller
 public class UserControllerAPI extends BaseControllerAPI {
 
 	@Autowired
-	private UserDAO userDAO;
+	private UserDAO						userDAO;
+
+	@Autowired
+	private UserNameAvailableValidator	userNameAvailableValidator;
 
 	@ResponseBody
 	@RequestMapping(value = "/api/users/{id}", method = RequestMethod.PATCH)
@@ -49,11 +54,15 @@ public class UserControllerAPI extends BaseControllerAPI {
 		UserForm userForm = new UserForm();
 		BeanUtils.copyProperties(user, userForm);
 		userForm.setProperty(name, value);
-		BindingResult bindingResult = this.userDAO.validate(user, userForm);
 
-		if (bindingResult.hasErrors()) {
+		DataBinder binder = new DataBinder(userForm);
+		binder.setValidator(this.userNameAvailableValidator);
+		binder.validate();
+		BindingResult binding = binder.getBindingResult();
+
+		if (binding.hasErrors()) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			result.put("errors", bindingResult.getFieldErrors());
+			result.put("errors", binding.getFieldErrors());
 			return result;
 		}
 

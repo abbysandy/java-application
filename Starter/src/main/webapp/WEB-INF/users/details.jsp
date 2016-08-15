@@ -1,8 +1,13 @@
 
 <h1>Users</h1>
 
-<h2>${user.firstName} ${user.lastName}</h2>
-
+<h2>
+	${user.firstName} ${user.lastName}
+	<a href="/users/${user.id}/edit" class="btn btn-success btn-xs">
+		<span class="glyphicon glyphicon-edit"></span>
+		Edit
+	</a>
+</h2>
 <dl class="dl-horizontal">
 
 	<dt>Username:</dt>
@@ -37,5 +42,11 @@
 	
 	<dt>Country:</dt>
 	<dd>${user.country}</dd>
+	
+	<dt>Created:</dt>
+	<dd>${user.createdBy.firstName} ${user.createdBy.lastName} at ${user.createdAt}</dd>
+	
+	<dt>Last Updated:</dt>
+	<dd>${user.updatedBy.firstName} ${user.updatedBy.lastName} at ${user.updatedAt}</dd>
 	
 </dl>
