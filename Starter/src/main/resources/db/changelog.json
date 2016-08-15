@@ -220,5 +220,89 @@
                 }
             }]
         }
+    }, {
+        "changeSet": {
+            "id": "uuids",
+            "author": "brettmeyer",
+            "changes": [{
+                "delete": {
+                    "tableName": "users"
+                }
+            }, {
+                "dropForeignKeyConstraint": {
+                    "baseTableName": "users",
+                    "constraintName": "fk_created_by_users"
+                }
+            }, {
+                "dropForeignKeyConstraint": {
+                    "baseTableName": "users",
+                    "constraintName": "fk_updated_by_users"
+                }
+            }, {
+                "modifyDataType": {
+                    "tableName": "users",
+                    "columnName": "id",
+                    "newDataType": "BINARY(16)",
+                    "autoIncrement": false,
+                    "constraints": [{
+                        "nullable": true
+                    }]
+                }
+            }, {
+                "dropDefaultValue": {
+                    "tableName": "users",
+                    "columnName": "id"
+                }
+            }, {
+                "modifyDataType": {
+                    "tableName": "users",
+                    "columnName": "created_by_id",
+                    "newDataType": "BINARY(16)",
+                    "defaultValue": ""
+                }
+            }, {
+                "modifyDataType": {
+                    "tableName": "users",
+                    "columnName": "updated_by_id",
+                    "newDataType": "BINARY(16)"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "users",
+                    "baseColumnNames": "created_by_id",
+                    "constraintName": "fk_created_by_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "users",
+                    "baseColumnNames": "updated_by_id",
+                    "constraintName": "fk_updated_by_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }]
+        }
+     }, {
+        "changeSet": {
+            "id": "uuid-users",
+            "author": "brettmeyer",
+            "changes": [{
+                "loadData": {
+                    "tableName": "users",
+                    "file": "db/data/users-uuid.csv",
+                    "quotchar": "\"",
+                    "columns": [{
+                        "name": "id",
+                        "type": "COMPUTED"
+                    }]
+                }
+            }]
+        }
     }]
 }

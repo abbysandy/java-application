@@ -1,5 +1,7 @@
 package com.starter.validators;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -25,7 +27,7 @@ public class UserNameAvailableValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		UserForm userForm = (UserForm) target;
 		String userName = userForm.getUserName();
-		Integer id = userForm.getId();
+		UUID id = userForm.getId();
 
 		if (userName != null && !StringUtils.isEmpty(userName)) {
 			UserEntity userByUserName = this.userDAO.selectByUserName(userName);

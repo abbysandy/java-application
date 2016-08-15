@@ -1,11 +1,13 @@
 package com.starter.forms;
 
+import java.util.UUID;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class UserForm extends BaseForm {
 
-	private Integer	id;
+	private UUID	id;
 
 	@NotNull(message = "User Name is a required field.")
 	@Size(max = 255)
@@ -44,11 +46,11 @@ public class UserForm extends BaseForm {
 	@Size(max = 255)
 	private String	country;
 
-	public Integer getId() {
-		return id;
+	public UUID getId() {
+		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 

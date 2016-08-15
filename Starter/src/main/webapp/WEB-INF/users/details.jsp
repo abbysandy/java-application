@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <h1>Users</h1>
 
@@ -43,10 +44,23 @@
 	<dt>Country:</dt>
 	<dd>${user.country}</dd>
 	
-	<dt>Created:</dt>
-	<dd>${user.createdBy.firstName} ${user.createdBy.lastName} at ${user.createdAt}</dd>
+	<c:if test="${not empty user.createdBy}">
+		<dt>Created:</dt>
+		<dd>
+			<a href="/users/${user.createdBy.id}">
+				${user.createdBy.firstName} ${user.createdBy.lastName}
+			</a>
+			 at ${user.createdAt}
+		</dd>
+	</c:if>
 	
-	<dt>Last Updated:</dt>
-	<dd>${user.updatedBy.firstName} ${user.updatedBy.lastName} at ${user.updatedAt}</dd>
+	<c:if test="${not empty user.updatedBy}">
+		<dt>Last Updated:</dt>
+		<dd>
+			<a href="/users/${user.updatedBy.id}">
+				${user.updatedBy.firstName} ${user.updatedBy.lastName}
+			</a>
+			at ${user.updatedAt}</dd>
+	</c:if>
 	
 </dl>

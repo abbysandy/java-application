@@ -2,6 +2,7 @@ package com.starter.controllers.api;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +33,7 @@ public class UserControllerAPI extends BaseControllerAPI {
 
 	@ResponseBody
 	@RequestMapping(value = "/api/users/{id}", method = RequestMethod.PATCH)
-	public Map<String, Object> updateUser(@PathVariable Integer id, HttpServletResponse response, HttpServletRequest request) {
+	public Map<String, Object> updateUser(@PathVariable UUID id, HttpServletResponse response, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<>();
 
 		UserEntity user = this.userDAO.selectById(id);

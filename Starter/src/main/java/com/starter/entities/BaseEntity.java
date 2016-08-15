@@ -1,10 +1,9 @@
 package com.starter.entities;
 
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
@@ -15,8 +14,8 @@ import com.fasterxml.jackson.annotation.JsonRawValue;
 public abstract class BaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer		id;
+	@Column(columnDefinition = "BINARY(16)")
+	private UUID		id;
 
 	@ManyToOne
 	@JsonRawValue(value = true)
@@ -37,11 +36,11 @@ public abstract class BaseEntity {
 		return this.id.toString();
 	}
 
-	public Integer getId() {
+	public UUID getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 

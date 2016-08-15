@@ -1,12 +1,13 @@
 package com.starter.dao;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface BaseDAO<T> {
 
 	public List<T> select();
 
-	public T selectById(int id);
+	public T selectById(UUID id);
 
 	public T newEntity();
 

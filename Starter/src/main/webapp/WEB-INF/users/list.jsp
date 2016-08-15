@@ -13,7 +13,6 @@
 <table class="table table-bordered" data-editable="users">
 	<thead>
 		<tr>
-			<th data-width="40" class="text-center">#</th>
 			<th>User Name</th>
 			<th>First Name</th>
 			<th>Last Name</th>
@@ -32,7 +31,6 @@
 	
 		<c:forEach items="${users}" var="user">
 			<tr data-editable-entity="user" data-editable-url="/api/users/${user.id}">
-				<td class="text-center">${user.id}</td>
 				<td data-editable-field="userName">${user.userName}</td>
 				<td data-editable-field="firstName">${user.firstName}</td>
 				<td data-editable-field="lastName">${user.lastName}</td>

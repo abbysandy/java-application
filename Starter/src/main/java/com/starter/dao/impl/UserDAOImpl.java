@@ -2,6 +2,7 @@ package com.starter.dao.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public UserEntity selectById(int id) {
+	public UserEntity selectById(UUID id) {
 		return this.userRepository.findOne(id);
 	}
 

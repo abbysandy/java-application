@@ -6,6 +6,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.util.UUID;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -37,7 +39,7 @@ public class UserControllerTest extends BaseControllerTest {
 		userEntity.setFirstName("firstname");
 		userEntity.setLastName("lastname");
 		Mockito.when(this.userDAO.getCurrentUser()).thenReturn(userEntity);
-		Mockito.when(this.userDAO.selectById(Mockito.anyInt())).thenReturn(userEntity);
+		Mockito.when(this.userDAO.selectById(Mockito.any(UUID.class))).thenReturn(userEntity);
 
 		this.mockMvc = MockMvcBuilders.standaloneSetup(this.userController).build();
 	}

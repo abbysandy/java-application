@@ -1,6 +1,7 @@
 package com.starter.controllers;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -58,7 +59,7 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-	public String details(Model model, @PathVariable int id) {
+	public String details(@PathVariable UUID id, Model model) {
 		UserEntity user = this.userDAO.selectById(id);
 
 		if (user == null) {
@@ -91,7 +92,7 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/users/{id}/edit", method = RequestMethod.GET)
-	public String edit(@PathVariable int id, HttpServletResponse response, Model model) {
+	public String edit(@PathVariable UUID id, HttpServletResponse response, Model model) {
 		UserEntity user = this.userDAO.selectById(id);
 
 		if (user == null) {
@@ -111,7 +112,7 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
-	public String update(@PathVariable Integer id, Model model, @Valid @ModelAttribute("UserNameAvailableValidator") UserForm userForm, BindingResult binding, RedirectAttributes attr) {
+	public String update(@PathVariable UUID id, Model model, @Valid @ModelAttribute("UserNameAvailableValidator") UserForm userForm, BindingResult binding, RedirectAttributes attr) {
 		UserEntity user = this.userDAO.selectById(id);
 
 		if (user == null) {
@@ -130,12 +131,17 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
-	public String delete(@PathVariable int id) {
+	public String delete(@PathVariable UUID id) {
 		UserEntity user = this.userDAO.selectById(id);
 		if (user != null) {
 			this.userDAO.delete(user);
 		}
 		return "redirect:/users";
+	}
+
+	@RequestMapping(value = "/users/profile", method = RequestMethod.GET)
+	public String profile(Model model) {
+		return this.details(this.userDAO.getCurrentUser().getId(), model);
 	}
 
 	@RequestMapping(value = "/users/change-password", method = RequestMethod.GET)
