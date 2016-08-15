@@ -18,10 +18,10 @@ import com.starter.entities.UserEntity;
 public class UserControllerTest extends BaseControllerTest {
 
 	@Mock
-	private UserDAO	userDAO;
+	private UserDAO			userDAO;
 
 	@InjectMocks
-	UserController	userController;
+	private UserController	userController;
 
 	@Override
 	@Before
