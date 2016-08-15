@@ -29,7 +29,11 @@ public class UserControllerTest extends BaseControllerTest {
 		MockitoAnnotations.initMocks(this);
 
 		UserEntity userEntity = new UserEntity();
+		userEntity.setUserName("username");
+		userEntity.setFirstName("firstname");
+		userEntity.setLastName("lastname");
 		Mockito.when(this.userDAO.getCurrentUser()).thenReturn(userEntity);
+		Mockito.when(this.userDAO.selectById(Mockito.anyInt())).thenReturn(userEntity);
 
 		this.mockMvc = MockMvcBuilders.standaloneSetup(this.userController).build();
 	}
@@ -40,8 +44,18 @@ public class UserControllerTest extends BaseControllerTest {
 	}
 
 	@Test
+	public void testUserDetails() throws Exception {
+		this.mockMvc.perform(get("/users/1")).andExpect(status().isOk()).andExpect(view().name("users.details"));
+	}
+
+	@Test
 	public void testUsersNew() throws Exception {
 		this.mockMvc.perform(get("/users/new")).andExpect(status().isOk()).andExpect(view().name("users.new"));
+	}
+
+	@Test
+	public void testUsersEdit() throws Exception {
+		this.mockMvc.perform(get("/users/1/edit")).andExpect(status().isOk()).andExpect(view().name("users.edit"));
 	}
 
 	@Test
