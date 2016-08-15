@@ -1,81 +1,51 @@
 package com.starter.entities;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class UserEntity {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer		id;
+public class UserEntity extends BaseEntity {
 
 	@Column
-	private String		userName;
+	private String	userName;
 
 	@Column
-	private String		password;
+	private String	password;
 
 	@Column
-	private String		firstName;
+	private String	firstName;
 
 	@Column
-	private String		middleName;
+	private String	middleName;
 
 	@Column
-	private String		lastName;
+	private String	lastName;
 
 	@Column
-	private String		emailAddress;
+	private String	emailAddress;
 
 	@Column
-	private String		phone;
+	private String	phone;
 
 	@Column
-	private String		address;
+	private String	address;
 
 	@Column
-	private String		city;
+	private String	city;
 
 	@Column
-	private String		state;
+	private String	state;
 
 	@Column
-	private String		zipCode;
+	private String	zipCode;
 
 	@Column
-	private String		country;
+	private String	country;
 
 	@Column
-	private boolean		enabled;
-
-	@ManyToOne
-	private UserEntity	createdBy;
-
-	@ManyToOne
-	private UserEntity	updatedBy;
-
-	@Column
-	private Date		createdAt;
-
-	@Column
-	private Date		updatedAt;
-
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	private boolean	enabled;
 
 	public String getUserName() {
 		return this.userName;
@@ -179,38 +149,6 @@ public class UserEntity {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
-	}
-
-	public UserEntity getCreatedBy() {
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(UserEntity createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public UserEntity getUpdatedBy() {
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(UserEntity updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-
-	public Date getCreatedAt() {
-		return this.createdAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Date getUpdatedAt() {
-		return this.updatedAt;
-	}
-
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 
 }
