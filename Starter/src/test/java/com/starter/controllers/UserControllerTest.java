@@ -1,6 +1,8 @@
 package com.starter.controllers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -10,10 +12,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.starter.dao.UserDAO;
 import com.starter.entities.UserEntity;
+import com.starter.forms.UserForm;
 
 public class UserControllerTest extends BaseControllerTest {
 
@@ -54,8 +58,34 @@ public class UserControllerTest extends BaseControllerTest {
 	}
 
 	@Test
+	public void testUserCreate() throws Exception {
+		MockHttpServletRequestBuilder post = post("/users");
+		post.param("userName", "aNewUsername");
+		post.param("firstName", "FirstName");
+		post.param("lastName", "LastName");
+		post.param("emailAddress", "email@starter.com");
+
+		this.mockMvc.perform(post).andExpect(view().name("redirect:/users"));
+
+		Mockito.verify(this.userDAO, Mockito.times(1)).create(Mockito.any(UserEntity.class));
+	}
+
+	@Test
 	public void testUsersEdit() throws Exception {
 		this.mockMvc.perform(get("/users/1/edit")).andExpect(status().isOk()).andExpect(view().name("users.edit"));
+	}
+
+	@Test
+	public void testUserUpdate() throws Exception {
+		MockHttpServletRequestBuilder put = put("/users/1");
+		put.param("userName", "aNewUsername");
+		put.param("firstName", "FirstName");
+		put.param("lastName", "LastName");
+		put.param("emailAddress", "email@starter.com");
+
+		this.mockMvc.perform(put).andExpect(view().name("redirect:/users"));
+
+		Mockito.verify(this.userDAO, Mockito.times(1)).update(Mockito.any(UserEntity.class), Mockito.any(UserForm.class));
 	}
 
 	@Test

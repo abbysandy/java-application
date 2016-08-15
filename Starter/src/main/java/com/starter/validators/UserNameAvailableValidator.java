@@ -25,11 +25,12 @@ public class UserNameAvailableValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		UserForm userForm = (UserForm) target;
 		String userName = userForm.getUserName();
+		Integer id = userForm.getId();
 
 		if (userName != null && !StringUtils.isEmpty(userName)) {
 			UserEntity userByUserName = this.userDAO.selectByUserName(userName);
 
-			if (userByUserName != null) {
+			if (userByUserName != null && (id == null || !id.equals(userByUserName.getId()))) {
 				errors.rejectValue("userName", null, "User Name must be be unique.");
 			}
 		}

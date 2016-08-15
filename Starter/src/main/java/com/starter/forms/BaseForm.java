@@ -4,7 +4,7 @@ import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 
-public class BaseForm {
+public abstract class BaseForm {
 
 	public void setProperty(String name, String value) {
 		try {
