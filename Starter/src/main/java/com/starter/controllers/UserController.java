@@ -54,7 +54,7 @@ public class UserController extends BaseController {
 		binder.addValidators(this.confirmPasswordValidator);
 	}
 
-	@RequestMapping(value = { "/users", "/users/page/{page}/size/{size}/sort/{sort}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/users", "/users/page/{page}/size/{size}", "/users/page/{page}/size/{size}/sort/{sort}" }, method = RequestMethod.GET)
 	public String list(Model model, @PathVariable Optional<Integer> page, @PathVariable Optional<Integer> size, @PathVariable Optional<String> sort) {
 		Pageable pageable = PaginationUtil.pageable(UserEntity.class, page, size, sort);
 		Page<UserEntity> users = this.userDAO.select(pageable);

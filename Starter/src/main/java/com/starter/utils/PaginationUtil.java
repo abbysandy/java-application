@@ -19,7 +19,8 @@ public abstract class PaginationUtil {
 
 	private static final Integer	DEFAULT_PAGE	= 0;
 	private static final Integer	DEFAULT_SIZE	= 10;
-	private static final String		URL				= "%s/page/%d/size/%s/sort/%s";
+	private static final String		PAGINATION_URL	= "%s/page/%d/size/%s";
+	private static final String		SORT_URL		= "/sort/%s";
 	private static final Integer	DEFAULT_WIDTH	= 5;
 
 	public static Pageable pageable(Class<?> clazz, Optional<Integer> pageOption, Optional<Integer> sizeOption, Optional<String> sortOption) {
@@ -46,11 +47,21 @@ public abstract class PaginationUtil {
 			next = list.nextPageable().getPageNumber();
 		}
 
-		result.put("first", String.format(URL, baseUrl, firstPage, pageable.getPageSize(), "firstName:desc|lastName:asc"));
-		result.put("previous", String.format(URL, baseUrl, previous, pageable.getPageSize(), "firstName:desc|lastName:asc"));
-		result.put("pages", getPages(firstPage, lastPage, baseUrl, pageable, list));
-		result.put("next", String.format(URL, baseUrl, next, pageable.getPageSize(), "firstName:desc|lastName:asc"));
-		result.put("last", String.format(URL, baseUrl, lastPage, pageable.getPageSize(), "firstName:desc|lastName:asc"));
+		List<String> items = new ArrayList<>();
+		String sort = "";
+		Sort pageableSort = pageable.getSort();
+		if (pageableSort != null) {
+			for (Order order : pageableSort) {
+				items.add(order.getProperty().concat(":").concat(order.getDirection().toString().toLowerCase()));
+			}
+			sort = SORT_URL.concat(String.join("|", items));
+		}
+
+		result.put("first", String.format(PAGINATION_URL, baseUrl, firstPage, pageable.getPageSize(), sort));
+		result.put("previous", String.format(PAGINATION_URL, baseUrl, previous, pageable.getPageSize(), sort));
+		result.put("pages", getPages(firstPage, lastPage, baseUrl, pageable, list, sort));
+		result.put("next", String.format(PAGINATION_URL, baseUrl, next, pageable.getPageSize(), sort));
+		result.put("last", String.format(PAGINATION_URL, baseUrl, lastPage, pageable.getPageSize(), sort));
 
 		return result;
 	}
@@ -65,7 +76,7 @@ public abstract class PaginationUtil {
 		return DEFAULT_PAGE;
 	}
 
-	private static List<Map<String, Object>> getPages(int firstPage, int lastPage, String baseUrl, Pageable pageable, Page<?> list) {
+	private static List<Map<String, Object>> getPages(int firstPage, int lastPage, String baseUrl, Pageable pageable, Page<?> list, String sort) {
 		int currentPage = pageable.getPageNumber();
 
 		List<Map<String, Object>> pages = new ArrayList<>();
@@ -83,7 +94,7 @@ public abstract class PaginationUtil {
 		for (int i = start; i <= end; i++) {
 			Map<String, Object> page = new HashMap<>();
 			page.put("index", i + 1);
-			page.put("url", String.format(URL, baseUrl, i, pageable.getPageSize(), "firstName:desc|lastName:asc"));
+			page.put("url", String.format(PAGINATION_URL, baseUrl, i, pageable.getPageSize(), sort));
 			page.put("current", i == currentPage);
 
 			pages.add(page);
