@@ -304,5 +304,21 @@
                 }
             }]
         }
+     }, {
+        "changeSet": {
+            "id": "user-list",
+            "author": "brettmeyer",
+            "changes": [{
+                "loadData": {
+                    "tableName": "users",
+                    "file": "db/data/user-list.csv",
+                    "quotchar": "\"",
+                    "columns": [{
+                        "name": "id",
+                        "type": "COMPUTED"
+                    }]
+                }
+            }]
+        }
     }]
 }
