@@ -320,5 +320,389 @@
                 }
             }]
         }
+     }, {
+        "changeSet": {
+            "id": "posts",
+            "author": "brettmeyer",
+            "changes": [{
+                "createTable": {
+                    "tableName": "categories",
+                    "columns": [{
+                        "column": {
+                            "name": "id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "primaryKey": true,
+                                "nullable": false
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "name",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "created_by_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "updated_by_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "created_at",
+                            "type": "datetime",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "updated_at",
+                            "type": "datetime",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }]
+                }
+            }, {
+                "createTable": {
+                    "tableName": "tags",
+                    "columns": [{
+                        "column": {
+                            "name": "id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "primaryKey": true,
+                                "nullable": false
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "name",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "created_by_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "updated_by_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "created_at",
+                            "type": "datetime",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "updated_at",
+                            "type": "datetime",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }]
+                }
+            }, {
+                "createTable": {
+                    "tableName": "posts",
+                    "columns": [{
+                        "column": {
+                            "name": "id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "primaryKey": true,
+                                "nullable": false
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "title",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "content",
+                            "type": "mediumtext",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "alias",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "authored_by_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "published_at",
+                            "type": "datetime",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "created_by_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "updated_by_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "created_at",
+                            "type": "datetime",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "updated_at",
+                            "type": "datetime",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }]
+                }
+            }]
+        }
+     }, {
+        "changeSet": {
+            "id": "posts-fks",
+            "author": "brettmeyer",
+            "changes": [{
+                "addForeignKeyConstraint": {
+                    "baseTableName": "categories",
+                    "baseColumnNames": "created_by_id",
+                    "constraintName": "fk_categories_created_by_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "categories",
+                    "baseColumnNames": "updated_by_id",
+                    "constraintName": "fk_categories_updated_by_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "tags",
+                    "baseColumnNames": "created_by_id",
+                    "constraintName": "fk_tags_created_by_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "tags",
+                    "baseColumnNames": "updated_by_id",
+                    "constraintName": "fk_tags_updated_by_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "posts",
+                    "baseColumnNames": "created_by_id",
+                    "constraintName": "fk_posts_created_by_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "posts",
+                    "baseColumnNames": "updated_by_id",
+                    "constraintName": "fk_posts_updated_by_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "posts",
+                    "baseColumnNames": "authored_by_id",
+                    "constraintName": "fk_posts_authored_by_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }]
+        }
+    }, {
+        "changeSet": {
+            "id": "posts-many-to-many",
+            "author": "brettmeyer",
+            "changes": [{
+                "createTable": {
+                    "tableName": "posts_categories",
+                    "columns": [{
+                        "column": {
+                            "name": "id",
+                            "type": "int",
+                            "autoIncrement": true,
+                            "constraints": [{
+                                "primaryKey": true,
+                                "nullable": false
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "post_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": false
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "category_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": false
+                            }]
+                        }
+                    }]
+                }
+            }, {
+                 "createTable": {
+                    "tableName": "posts_tags",
+                    "columns": [{
+                        "column": {
+                            "name": "id",
+                            "type": "int",
+                            "autoIncrement": true,
+                            "constraints": [{
+                                "primaryKey": true,
+                                "nullable": false
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "post_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": false
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "tag_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": false
+                            }]
+                        }
+                    }]
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "posts_categories",
+                    "baseColumnNames": "post_id",
+                    "constraintName": "fk_post_categories_posts",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "posts",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "posts_categories",
+                    "baseColumnNames": "category_id",
+                    "constraintName": "fk_post_categories_categories",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "categories",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "posts_tags",
+                    "baseColumnNames": "post_id",
+                    "constraintName": "fk_post_tags_posts",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "posts",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "posts_tags",
+                    "baseColumnNames": "tag_id",
+                    "constraintName": "fk_post_tags_tags",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "tags",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }]
+        }
     }]
 }

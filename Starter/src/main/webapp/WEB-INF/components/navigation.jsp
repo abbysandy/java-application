@@ -26,6 +26,10 @@
 					<a href="/users">Users</a>
 				</li>
 				
+				<li <c:if test="${navId eq 'posts'}">class="active"</c:if>>
+					<a href="/posts">Posts</a>
+				</li>
+				
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right">
