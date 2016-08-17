@@ -39,7 +39,7 @@
 				<span class="glyphicon glyphicon-arrow-right"></span>
 			</span>
 			
-			<input type="text" class="form-control small-input" />
+			<input type="text" class="form-control small-input" value="${pagination.current}" />
 		</span>
 	
 	</div>
@@ -52,17 +52,16 @@
 			</span>
 	
 			<select class="form-control">
-				<option value="10">10</option>
-				<option value="25">25</option>
-				<option value="50">50</option>
-				<option value="100">100</option>
+				<c:forEach items="10,25,50,100" var="size">
+					<option value="${size}">${size}</option>
+				</c:forEach>
 			</select>
 		</span>
 	
 	</div>
 	
 	<div class="info">
-		Showing rows 1 - 10 of 1008
+		Showing rows ${pagination.rowStart} - ${pagination.rowEnd} of ${pagination.total}
 	</div>
 	
 </nav>

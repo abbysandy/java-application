@@ -1,14 +1,19 @@
 package com.starter.controllers;
 
-import java.util.Optional;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,11 +59,27 @@ public class UserController extends BaseController {
 		binder.addValidators(this.confirmPasswordValidator);
 	}
 
-	@RequestMapping(value = { "/users", "/users/page/{page}/size/{size}", "/users/page/{page}/size/{size}/sort/{sort}" }, method = RequestMethod.GET)
-	public String list(Model model, @PathVariable Optional<Integer> page, @PathVariable Optional<Integer> size, @PathVariable Optional<String> sort) {
-		Pageable pageable = PaginationUtil.pageable(UserEntity.class, page, size, sort);
+	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	public String list(Model model, HttpServletRequest request) {
+		Pageable pageable = PaginationUtil.pageable(UserEntity.class, request);
 		Page<UserEntity> users = this.userDAO.select(pageable);
 
+		Map<String, String> sortable = new HashMap<>();
+		Sort sort = pageable.getSort();
+		if (sort != null) {
+			Field[] fields = UserEntity.class.getDeclaredFields();
+			for (Field field : fields) {
+				Order orderFor = sort.getOrderFor(field.getName());
+
+				sortable.put(field.getName(), "");
+
+				if (orderFor != null) {
+					sortable.put(field.getName(), orderFor.getDirection().toString().toLowerCase());
+				}
+			}
+		}
+
+		model.addAttribute("sortable", sortable);
 		model.addAttribute("pagination", PaginationUtil.pagination("/users", pageable, users));
 		model.addAttribute("users", users.getContent());
 		return "users.list";

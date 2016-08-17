@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,14 +20,19 @@ public abstract class PaginationUtil {
 
 	private static final Integer	DEFAULT_PAGE	= 0;
 	private static final Integer	DEFAULT_SIZE	= 10;
-	private static final String		PAGINATION_URL	= "%s/page/%d/size/%s";
-	private static final String		SORT_URL		= "/sort/%s";
+	private static final String		PAGINATION_URL	= "%s?page=%d&size=%s";
+	private static final String		SORT_URL		= "&sort=%s";
 	private static final Integer	DEFAULT_WIDTH	= 5;
 
-	public static Pageable pageable(Class<?> clazz, Optional<Integer> pageOption, Optional<Integer> sizeOption, Optional<String> sortOption) {
-		Integer page = getPage(pageOption);
-		Integer size = getSize(sizeOption);
-		Sort sort = getSort(clazz, sortOption);
+	public static Pageable pageable(Class<?> clazz, HttpServletRequest request) {
+		String pageParam = request.getParameter("page");
+		String sizeParam = request.getParameter("size");
+		String sortParam = request.getParameter("sort");
+		String searchParam = request.getParameter("search");
+
+		Integer page = getPage(pageParam);
+		Integer size = getSize(sizeParam);
+		Sort sort = getSort(clazz, sortParam);
 
 		return new PageRequest(page, size, sort);
 	}
@@ -36,6 +42,11 @@ public abstract class PaginationUtil {
 
 		int firstPage = 0;
 		int lastPage = list.getTotalPages() - 1;
+		int currentPage = pageable.getPageNumber();
+		int pageSize = pageable.getPageSize();
+		long total = list.getTotalElements();
+		long rowStart = currentPage * pageSize + 1;
+		long rowEnd = Math.min((currentPage + 1) * pageSize, total);
 
 		int previous = DEFAULT_PAGE;
 		if (!list.isFirst()) {
@@ -59,26 +70,19 @@ public abstract class PaginationUtil {
 
 		result.put("first", String.format(PAGINATION_URL, baseUrl, firstPage, pageable.getPageSize(), sort));
 		result.put("previous", String.format(PAGINATION_URL, baseUrl, previous, pageable.getPageSize(), sort));
-		result.put("pages", getPages(firstPage, lastPage, baseUrl, pageable, list, sort));
+		result.put("pages", getPages(firstPage, lastPage, currentPage, pageSize, baseUrl, sort));
 		result.put("next", String.format(PAGINATION_URL, baseUrl, next, pageable.getPageSize(), sort));
 		result.put("last", String.format(PAGINATION_URL, baseUrl, lastPage, pageable.getPageSize(), sort));
+		result.put("current", currentPage);
+		result.put("size", pageSize);
+		result.put("total", total);
+		result.put("rowStart", rowStart);
+		result.put("rowEnd", rowEnd);
 
 		return result;
 	}
 
-	private static Integer getPage(Optional<Integer> pageOption) {
-		if (pageOption.isPresent()) {
-			if (pageOption.get() >= 0) {
-				return pageOption.get();
-			}
-		}
-
-		return DEFAULT_PAGE;
-	}
-
-	private static List<Map<String, Object>> getPages(int firstPage, int lastPage, String baseUrl, Pageable pageable, Page<?> list, String sort) {
-		int currentPage = pageable.getPageNumber();
-
+	private static List<Map<String, Object>> getPages(int firstPage, int lastPage, int currentPage, int pageSize, String baseUrl, String sort) {
 		List<Map<String, Object>> pages = new ArrayList<>();
 
 		int quotient = Math.floorDiv(DEFAULT_WIDTH, 2);
@@ -94,7 +98,7 @@ public abstract class PaginationUtil {
 		for (int i = start; i <= end; i++) {
 			Map<String, Object> page = new HashMap<>();
 			page.put("index", i + 1);
-			page.put("url", String.format(PAGINATION_URL, baseUrl, i, pageable.getPageSize(), sort));
+			page.put("url", String.format(PAGINATION_URL, baseUrl, i, pageSize, sort));
 			page.put("current", i == currentPage);
 
 			pages.add(page);
@@ -103,24 +107,36 @@ public abstract class PaginationUtil {
 		return pages;
 	}
 
-	private static Integer getSize(Optional<Integer> sizeOption) {
-		if (sizeOption.isPresent()) {
-			if (sizeOption.get() > 0) {
-				return sizeOption.get();
+	private static Integer getPage(String pageOption) {
+		if (pageOption != null && !pageOption.isEmpty()) {
+			int page = Integer.parseInt(pageOption);
+			if (page >= 0) {
+				return page;
+			}
+		}
+
+		return DEFAULT_PAGE;
+	}
+
+	private static Integer getSize(String sizeOption) {
+		if (sizeOption != null && !sizeOption.isEmpty()) {
+			int size = Integer.parseInt(sizeOption);
+			if (size > 0) {
+				return size;
 			}
 		}
 
 		return DEFAULT_SIZE;
 	}
 
-	private static Sort getSort(Class<?> clazz, Optional<String> sortOption) {
-		if (!sortOption.isPresent()) {
+	private static Sort getSort(Class<?> clazz, String sortOption) {
+		if (sortOption == null) {
 			return null;
 		}
 
 		List<Order> orders = new ArrayList<>();
 
-		String[] params = sortOption.get().split("\\|");
+		String[] params = sortOption.split("\\|");
 		for (String param : params) {
 
 			if (!Pattern.compile("(?i)\\w+:(desc|asc)").matcher(param).find()) {

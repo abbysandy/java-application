@@ -51,3 +51,41 @@ table {
 table.table > tbody > tr > td {
 	vertical-align: middle;
 }
+
+table.table th.sortable {
+	padding: 0;
+	vertical-align: inherit;
+}
+
+table.table th.sortable a {
+	display: block;
+	width: 100%;
+	padding: 8px;
+	color: #333;
+}
+
+table.table th.sortable a:hover {
+	text-decoration: none;
+}
+
+table.table th.sortable .dir {
+	position: relative;
+	top: 1px;
+	display: inline-block;
+	font-family: 'Glyphicons Halflings';
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+table.table th.sortable.asc .dir:before {
+	 content: "\e093";
+}
+
+
+table.table th.sortable.desc .dir:before {
+	 content: "\e094";
+}
+

@@ -13,16 +13,66 @@
 <table class="table table-bordered" data-editable="users">
 	<thead>
 		<tr>
-			<th>User Name</th>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>Email Address</th>
-			<th>Phone</th>
-			<th>Address</th>
-			<th>City</th>
-			<th data-width="120">State</th>
-			<th data-width="120">Zip Code</th>
-			<th>Country</th>
+			<th class="sortable ${sortable.userName}">
+				<a href="/users?size=${pagination.size}&sort=userName:asc">
+					User Name
+					<span class="dir"></span>
+				</a>
+			</th>
+			<th class="sortable ${sortable.firstName}">
+				<a href="/users?size=${pagination.size}&sort=firstName:asc">
+					First Name
+					<span class="dir"></span>
+				</a>
+			</th>
+			<th class="sortable ${sortable.lastName}">
+				<a href="/users?size=${pagination.size}&sort=lastName:asc">
+					Last Name
+					<span class="dir"></span>
+				</a>
+			</th>
+			<th class="sortable ${sortable.emailAddress}">
+				<a href="/users?size=${pagination.size}&sort=emailAddress:asc">
+					Email Address
+					<span class="dir"></span>
+				</a>
+			</th>
+			<th class="sortable ${sortable.phone}">
+				<a href="/users?size=${pagination.size}&sort=phone:asc">
+					Phone
+					<span class="dir"></span>
+				</a>
+			</th>
+			<th class="sortable ${sortable.address}">
+				<a href="/users?size=${pagination.size}&sort=address:asc">
+					Address
+					<span class="dir"></span>
+				</a>
+			</th>
+			<th class="sortable ${sortable.city}">
+				<a href="/users?size=${pagination.size}&sort=city:asc">
+					City
+					<span class="dir"></span>
+				</a>
+			</th>
+			<th class="sortable ${sortable.state}" data-width="120">
+				<a href="/users?size=${pagination.size}&sort=state:asc">
+					State
+					<span class="dir"></span>
+				</a>
+			</th>
+			<th class="sortable ${sortable.zipCode}" data-width="120">
+				<a href="/users?size=${pagination.size}&sort=zipCode:asc">
+					Zip Code
+					<span class="dir"></span>
+				</a>
+			</th>
+			<th class="sortable ${sortable.country}">
+				<a href="/users?size=${pagination.size}&sort=country:asc">
+					Country
+					<span class="dir"></span>
+				</a>
+			</th>
 			<th data-width="209">Actions</th>
 		</tr>
 	</thead>
