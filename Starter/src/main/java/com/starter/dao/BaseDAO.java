@@ -3,9 +3,14 @@ package com.starter.dao;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface BaseDAO<T> {
 
 	public List<T> select();
+
+	public Page<T> select(Pageable pageable);
 
 	public T selectById(UUID id);
 

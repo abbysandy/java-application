@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +26,11 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 	@Override
 	public List<UserEntity> select() {
 		return this.userRepository.findAll();
+	}
+
+	@Override
+	public Page<UserEntity> select(Pageable pageable) {
+		return this.userRepository.findAll(pageable);
 	}
 
 	@Override

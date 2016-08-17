@@ -1,12 +1,14 @@
 package com.starter.controllers;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,7 @@ import com.starter.dao.UserDAO;
 import com.starter.entities.UserEntity;
 import com.starter.forms.UserForm;
 import com.starter.forms.UserPasswordForm;
+import com.starter.utils.PaginationUtil;
 import com.starter.validators.ConfirmPasswordValidator;
 import com.starter.validators.UserNameAvailableValidator;
 
@@ -51,10 +54,13 @@ public class UserController extends BaseController {
 		binder.addValidators(this.confirmPasswordValidator);
 	}
 
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public String list(Model model) {
-		List<UserEntity> users = this.userDAO.select();
-		model.addAttribute("users", users);
+	@RequestMapping(value = { "/users", "/users/page/{page}/size/{size}/sort/{sort}" }, method = RequestMethod.GET)
+	public String list(Model model, @PathVariable Optional<Integer> page, @PathVariable Optional<Integer> size, @PathVariable Optional<String> sort) {
+		Pageable pageable = PaginationUtil.pageable(UserEntity.class, page, size, sort);
+		Page<UserEntity> users = this.userDAO.select(pageable);
+
+		model.addAttribute("pagination", PaginationUtil.pagination("/users", pageable, users));
+		model.addAttribute("users", users.getContent());
 		return "users.list";
 	}
 
