@@ -10,7 +10,7 @@
 	<definition name="layout.basic" extends="layout.base">
 		<put-attribute name="navigation" value="/WEB-INF/components/navigation.jsp" cascade="true" />
 		<put-attribute name="layout" value="/WEB-INF/layout/basic.jsp" cascade="true" />
-		<put-attribute name="component" value="" cascade="true" />
+		<put-list-attribute name="components" cascade="true"></put-list-attribute>
 	</definition>
 	<definition name="layout.error" template="/WEB-INF/layout/error.jsp"></definition>
 	
@@ -36,7 +36,11 @@
 	</definition>
 	<definition name="users.list" extends="section.users">
 		<put-attribute name="body" value="/WEB-INF/users/list.jsp" cascade="true" />
-		<put-attribute name="component" value="/WEB-INF/components/editable-form.jsp" cascade="true" />
+		<put-list-attribute name="components" cascade="true">
+	    	<add-attribute value="/WEB-INF/components/delete-confirmation.jsp" />
+	    	<add-attribute value="/WEB-INF/components/editable-form.jsp" />
+	    	<add-attribute value="/WEB-INF/components/pagination.jsp" />
+	    </put-list-attribute>
 	</definition>
 	<definition name="users.details" extends="section.users">
 		<put-attribute name="body" value="/WEB-INF/users/details.jsp" cascade="true" />

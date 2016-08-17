@@ -10,9 +10,11 @@
 		<link rel="stylesheet" href="/assets/stylesheets/all.css" media="screen" />
 		<link rel="stylesheet" href="/assets/stylesheets/authentication.css" media="screen" />
 		<link rel="stylesheet" href="/assets/stylesheets/editable-form.css" media="screen" />
+		<link rel="stylesheet" href="/assets/stylesheets/errors.css" media="screen" />
+		<link rel="stylesheet" href="/assets/stylesheets/pagination.css" media="screen" />
 	</head>
 	<body>
-	
+		
 		<tiles:insertAttribute name="layout" />
 	
 		<script src="/webjars/jquery/2.2.4/jquery.min.js"></script>
