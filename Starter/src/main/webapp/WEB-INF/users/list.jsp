@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
 <h1>Users</h1>
 
@@ -20,7 +20,7 @@
 			<th>Phone</th>
 			<th>Address</th>
 			<th>City</th>
-			<th data-width="75">State</th>
+			<th data-width="120">State</th>
 			<th data-width="120">Zip Code</th>
 			<th>Country</th>
 			<th data-width="209">Actions</th>
@@ -42,26 +42,23 @@
 				<td data-editable-field="zipCode">${user.zipCode}</td>
 				<td data-editable-field="country">${user.country}</td>
 				<td>
-					<form:form action="/users/${user.id}" method="DELETE" class="inline">
-						<div class="btn-group">
-							<a href="/users/${user.id}" class="btn btn-sm btn-primary">
-								<span class="glyphicon glyphicon-eye-open"></span>
-								View
-							</a>
-							<a href="/users/${user.id}/edit" class="btn btn-sm btn-success">
-								<span class="glyphicon glyphicon-edit"></span>
-								Edit
-							</a>
-							<button class="btn btn-sm btn-danger">
-								<span class="glyphicon glyphicon-trash"></span>
-								Delete
-							</button>
-						</div>
-					</form:form>
+					<div class="btn-group">
+						<a href="/users/${user.id}" class="btn btn-sm btn-primary">
+							<span class="glyphicon glyphicon-eye-open"></span>
+							View
+						</a>
+						<a href="/users/${user.id}/edit" class="btn btn-sm btn-success">
+							<span class="glyphicon glyphicon-edit"></span>
+							Edit
+						</a>
+						<button class="btn btn-sm btn-danger" data-confirm="" data-toggle="modal" data-target=".delete-confirmation" data-action="/users/${user.id}">
+							<span class="glyphicon glyphicon-trash"></span>
+							Delete
+						</button>
+					</div>
 				</td>
 			</tr>
 		</c:forEach>
 	
 	</tbody>
 </table>
-

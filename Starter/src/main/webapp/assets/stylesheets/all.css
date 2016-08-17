@@ -1,3 +1,15 @@
+.table {
+	font-size: 9px;
+}
+.table .btn {
+	display: none;
+}
+td {
+	padding: 4px;
+}
+
+
+
 body {
 	padding-top: 50px;
 }
@@ -42,13 +54,6 @@ h1 {
 .panel-border-top {
 	border-top: solid 1px #ddd;
 	padding-top: 30px;
-}
-
-.field-error-message {
-	color: #a94442;
-	display: block;
-	padding: 3px 0 0 3px;
-	font-size: 12px;
 }
 
 table {

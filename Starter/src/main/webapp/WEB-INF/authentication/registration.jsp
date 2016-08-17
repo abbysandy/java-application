@@ -1,8 +1,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<form:errors path="*" class="form-errors hidden" />
 
 <form:form modelAttribute="userRegistrationForm" action="/registration" method="POST" class="form-horizontal">
+	<form:errors path="*" class="form-errors" />
 	
 	<div class="panel panel-default">
 
@@ -103,8 +103,8 @@
 		<div class="panel-body panel-border-top">
 		
 			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button class="btn btn-default">Register</button>
+				<div class="col-xs-12">
+					<button class="btn btn-block btn-primary">Register</button>
 				</div>
 			</div>
 	

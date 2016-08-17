@@ -20,7 +20,7 @@
 	padding: 12px;
 	background: #fff;
 	display: none;
-	z-index: 1;
+	z-index: 10;
 	width: 380px;
 	top: 20px;
 	left: 30px;

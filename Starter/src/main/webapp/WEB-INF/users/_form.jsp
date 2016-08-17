@@ -1,5 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<form:errors path="*" class="form-errors hidden" />
+<form:errors path="*" class="form-errors" />
 
 <div class="panel panel-default">
 
@@ -138,12 +138,11 @@
 	<div class="panel-body panel-border-top">
 	
 		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<button class="btn btn-default">${action} User</button>
+			<div class="col-xs-12">
+				<button class="btn btn-block btn-primary">${action} User</button>
 			</div>
 		</div>
 
 	</div>
 
 </div>
-
