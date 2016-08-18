@@ -1,5 +1,6 @@
 package com.starter.dao.impl;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
@@ -96,6 +98,14 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		if (authentication == null) {
 			return null;
 		}
+
+		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		for (GrantedAuthority authority : authorities) {
+			if (authority.getAuthority().equals("ROLE_ANONYMOUS")) {
+				return null;
+			}
+		}
+
 		return this.selectByUserName(authentication.getName());
 	}
 
