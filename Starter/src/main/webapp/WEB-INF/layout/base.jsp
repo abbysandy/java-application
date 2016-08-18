@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="/assets/stylesheets/editable-form.css" media="screen" />
 		<link rel="stylesheet" href="/assets/stylesheets/errors.css" media="screen" />
 		<link rel="stylesheet" href="/assets/stylesheets/pagination.css" media="screen" />
+		<link rel="stylesheet" href="/assets/stylesheets/table-responsive.css" media="screen" />
 	</head>
 	<body>
 		
@@ -23,6 +24,7 @@
 		<script src="/assets/javascripts/editable-form.js"></script>
 		<script src="/assets/javascripts/form-errors.js"></script>
 		<script src="/assets/javascripts/table-formatting.js"></script>
+		<script src="/assets/javascripts/table-responsive.js"></script>
 		
 	</body>
 </html>

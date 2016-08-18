@@ -20,3 +20,5 @@ Environment Profiles, dev, qa, prod, etc
 SASS for css
 
 Edit in DAO Impl, not happy with it
+
+Responsive table
