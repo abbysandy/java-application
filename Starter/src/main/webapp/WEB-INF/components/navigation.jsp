@@ -26,8 +26,19 @@
 					<a href="/users">Users</a>
 				</li>
 				
-				<li <c:if test="${navId eq 'posts'}">class="active"</c:if>>
-					<a href="/posts">Posts</a>
+				<li class="dropdown <c:if test="${navId eq 'posts'}">active</c:if>">
+				
+					<a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
+						Posts
+						<span class="caret"></span>
+					</a>
+					
+					<ul class="dropdown-menu">
+						<li><a href="/posts">Posts</a></li>
+						<li><a href="/categories">Categories</a></li>
+						<li><a href="/tags">Tags</a></li>
+					</ul>
+					
 				</li>
 				
 			</ul>

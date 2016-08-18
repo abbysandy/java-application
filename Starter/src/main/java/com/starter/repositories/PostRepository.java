@@ -9,4 +9,6 @@ import com.starter.entities.PostEntity;
 @Repository
 public interface PostRepository extends BaseRepository<PostEntity, UUID> {
 
+	public PostEntity findByAlias(String alias);
+
 }
