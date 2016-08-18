@@ -1,24 +1,32 @@
 # java-application
 Full Featured Spring Boot Application
 
-TODO Pagination
+TODO
 
-Filters
+	Pagination
 
-Search
+	Filters
 
-Confirm Delete - still needs polish
+	Search
 
-Redirect From Login page if already authenticated
+	Confirm Delete - still needs polish
 
-Posts module
+	Redirect From Login page if already authenticated
 
-Email confirmation page of registration and activation
+	Posts module
 
-Environment Profiles, dev, qa, prod, etc
+	Email confirmation page of registration and activation
 
-SASS for css
+	Environment Profiles, dev, qa, prod, etc
 
-Edit in DAO Impl, not happy with it
+	SASS for css
 
-Responsive table
+	Edit in DAO Impl, not happy with it
+
+	Responsive table
+
+	User Roles
+
+	Rename AuthenticationController, it's stupid
+
+	Last Logged In Date for user

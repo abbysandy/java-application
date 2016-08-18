@@ -1,6 +1,8 @@
 
 <h1>400</h1>
 
-<p><strong>You are not authorized to make this request</strong></p>
+<p><strong>Unauthorized</strong></p>
 
-<a href="/login">Login</a>
+<p>You are not authorized to make this request.</p>
+
+<a href="/">Starter Project</a>

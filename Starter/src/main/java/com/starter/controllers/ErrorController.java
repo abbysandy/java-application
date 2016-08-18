@@ -14,6 +14,12 @@ public class ErrorController {
 		return "errors.400";
 	}
 
+	@RequestMapping("/errors/403")
+	@ResponseStatus(value = HttpStatus.FORBIDDEN)
+	public String forbidden() {
+		return "errors.403";
+	}
+
 	@RequestMapping("/errors/404")
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public String notFound() {
