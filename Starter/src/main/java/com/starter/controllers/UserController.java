@@ -149,7 +149,7 @@ public class UserController extends BaseController {
 		if (binding.hasErrors()) {
 			attr.addFlashAttribute("org.springframework.validation.BindingResult.userForm", binding);
 			attr.addFlashAttribute("userForm", userForm);
-			return String.format("redirect:/users/%d/edit", id);
+			return String.format("redirect:/users/%s/edit", id);
 		}
 
 		this.userDAO.update(user, userForm);

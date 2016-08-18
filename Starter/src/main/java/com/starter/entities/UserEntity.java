@@ -151,4 +151,8 @@ public class UserEntity extends BaseEntity {
 		this.enabled = enabled;
 	}
 
+	public String getFullName() {
+		return String.format("%s %s", this.firstName, this.lastName);
+	}
+
 }

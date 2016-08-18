@@ -1,0 +1,72 @@
+/* 
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media (max-width: 1083px) {
+
+	table.table-responsive,
+	table.table-responsive thead,
+	table.table-responsive tbody,
+	table.table-responsive tr,
+	table.table-responsive th,
+	table.table-responsive td { 
+		display: block; 
+	}
+	
+	table.table-responsive > thead > tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	table.table-responsive tr {
+		border: 1px solid #ccc;
+	}
+	
+	table.table-responsive > tbody > tr > td { 
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	table.table-responsive td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+	
+	table.table-responsive td:before {
+		content: attr(data-label);
+	}
+	
+	/* table.table-responsive td:nth-of-type(1):before { content: "User Name"; }
+	table.table-responsive td:nth-of-type(2):before { content: "First Name"; }
+	table.table-responsive td:nth-of-type(3):before { content: "Last Name"; }
+	table.table-responsive td:nth-of-type(4):before { content: "Email Address"; }
+	table.table-responsive td:nth-of-type(5):before { content: "Phone"; }
+	table.table-responsive td:nth-of-type(6):before { content: "Address"; }
+	table.table-responsive td:nth-of-type(7):before { content: "City"; }
+	table.table-responsive td:nth-of-type(8):before { content: "State"; }
+	table.table-responsive td:nth-of-type(9):before { content: "Zip Code"; }
+	table.table-responsive td:nth-of-type(10):before { content: "Country"; }
+	table.table-responsive td:nth-of-type(11):before { content: "Actions"; } */
+	
+	/*
+	.column:before{
+		font-weight:bold;
+		padding-right:20px;
+		font-size:12px;
+		content:" "attr(data-label)" //";
+	} 
+	*/
+	
+	/* http://www.mobifreaks.com/wp-content/demos/Responsive-and-SEO-Friendly-Data-Tables/ */
+	
+}

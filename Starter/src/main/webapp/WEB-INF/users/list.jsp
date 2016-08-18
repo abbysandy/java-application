@@ -10,7 +10,7 @@
 	</a>
 </div>
 
-<table class="table table-bordered" data-editable="users">
+<table class="table table-bordered table-responsive" data-editable="users">
 	<thead>
 		<tr>
 			<th class="sortable ${sortable.userName}">
@@ -81,16 +81,16 @@
 	
 		<c:forEach items="${users}" var="user">
 			<tr data-editable-entity="user" data-editable-url="/api/users/${user.id}">
-				<td data-editable-field="userName">${user.userName}</td>
-				<td data-editable-field="firstName">${user.firstName}</td>
-				<td data-editable-field="lastName">${user.lastName}</td>
-				<td data-editable-field="emailAddress">${user.emailAddress}</td>
-				<td data-editable-field="phone">${user.phone}</td>
-				<td data-editable-field="address">${user.address}</td>
-				<td data-editable-field="city">${user.city}</td>
-				<td data-editable-field="state">${user.state}</td>
-				<td data-editable-field="zipCode">${user.zipCode}</td>
-				<td data-editable-field="country">${user.country}</td>
+				<td data-editable-field="userName" data-label="User Name">${user.userName}</td>
+				<td data-editable-field="firstName" data-label="First Name">${user.firstName}</td>
+				<td data-editable-field="lastName" data-label="Last Name">${user.lastName}</td>
+				<td data-editable-field="emailAddress" data-label="Email Address">${user.emailAddress}</td>
+				<td data-editable-field="phone" data-label="Phone">${user.phone}</td>
+				<td data-editable-field="address" data-label="Address">${user.address}</td>
+				<td data-editable-field="city" data-label="City">${user.city}</td>
+				<td data-editable-field="state" data-label="State">${user.state}</td>
+				<td data-editable-field="zipCode" data-label="Zip Code">${user.zipCode}</td>
+				<td data-editable-field="country" data-label="Country">${user.country}</td>
 				<td>
 					<div class="btn-group">
 						<a href="/users/${user.id}" class="btn btn-sm btn-primary">

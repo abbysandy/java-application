@@ -55,6 +55,61 @@
 		<put-attribute name="body" value="/WEB-INF/users/change-password.jsp" cascade="true" />
 	</definition>
 	
+	<!-- Posts -->
+	<definition name="section.posts" extends="layout.basic">
+		<put-attribute name="navId" value="posts" cascade="true" />
+	</definition>
+	<definition name="posts.list" extends="section.posts">
+		<put-attribute name="body" value="/WEB-INF/posts/list.jsp" cascade="true" />
+	</definition>
+	<definition name="posts.details" extends="section.posts">
+		<put-attribute name="body" value="/WEB-INF/posts/details.jsp" cascade="true" />
+	</definition>
+	<definition name="posts.edit" extends="section.posts">
+		<put-attribute name="body" value="/WEB-INF/posts/edit.jsp" cascade="true" />
+	</definition>
+	<definition name="posts.new" extends="section.posts">
+		<put-attribute name="body" value="/WEB-INF/posts/new.jsp" cascade="true" />
+	</definition>
+	
+	<!-- Categories -->
+	<definition name="section.categories" extends="layout.basic">
+		<put-attribute name="navId" value="categories" cascade="true" />
+	</definition>
+	<definition name="categories.list" extends="section.categories">
+		<put-attribute name="body" value="/WEB-INF/categories/list.jsp" cascade="true" />
+		<put-list-attribute name="components" cascade="true">
+	    	<add-attribute value="/WEB-INF/components/delete-confirmation.jsp" />
+	    </put-list-attribute>
+	</definition>
+	<definition name="categories.details" extends="section.categories">
+		<put-attribute name="body" value="/WEB-INF/categories/details.jsp" cascade="true" />
+	</definition>
+	<definition name="categories.edit" extends="section.categories">
+		<put-attribute name="body" value="/WEB-INF/categories/edit.jsp" cascade="true" />
+	</definition>
+	<definition name="categories.new" extends="section.categories">
+		<put-attribute name="body" value="/WEB-INF/categories/new.jsp" cascade="true" />
+	</definition>
+	
+	<!-- Tags -->
+	<definition name="section.tags" extends="layout.basic">
+		<put-attribute name="navId" value="tags" cascade="true" />
+	</definition>
+	<definition name="tags.list" extends="section.tags">
+		<put-attribute name="body" value="/WEB-INF/tags/list.jsp" cascade="true" />
+	</definition>
+	<definition name="tags.details" extends="section.tags">
+		<put-attribute name="body" value="/WEB-INF/tags/details.jsp" cascade="true" />
+	</definition>
+	<definition name="tags.edit" extends="section.tags">
+		<put-attribute name="body" value="/WEB-INF/tags/edit.jsp" cascade="true" />
+	</definition>
+	<definition name="tags.new" extends="section.tags">
+		<put-attribute name="body" value="/WEB-INF/tags/new.jsp" cascade="true" />
+	</definition>
+	
+	
 	<!-- Errors -->
 	<definition name="errors.400" extends="layout.error">
 		<put-attribute name="body" value="/WEB-INF/errors/400.jsp" cascade="true" />
