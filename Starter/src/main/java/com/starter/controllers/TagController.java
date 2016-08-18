@@ -1,6 +1,5 @@
 package com.starter.controllers;
 
-import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,7 +29,7 @@ public class TagController extends BaseController {
 
 	@RequestMapping(value = "/tags", method = RequestMethod.GET)
 	public String list(Model model, HttpServletRequest request) {
-		List<TagEntity> tags = this.tagDAO.select();
+		Iterable<TagEntity> tags = this.tagDAO.select(new Sort(Direction.ASC, "name"));
 		model.addAttribute("tags", tags);
 		return "tags.list";
 	}

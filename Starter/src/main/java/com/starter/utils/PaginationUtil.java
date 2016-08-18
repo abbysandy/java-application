@@ -28,7 +28,7 @@ public abstract class PaginationUtil {
 		String pageParam = request.getParameter("page");
 		String sizeParam = request.getParameter("size");
 		String sortParam = request.getParameter("sort");
-		String searchParam = request.getParameter("search");
+		// String searchParam = request.getParameter("search");
 
 		Integer page = getPage(pageParam);
 		Integer size = getSize(sizeParam);

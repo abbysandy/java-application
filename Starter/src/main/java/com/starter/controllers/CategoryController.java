@@ -1,6 +1,5 @@
 package com.starter.controllers;
 
-import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,7 +29,7 @@ public class CategoryController extends BaseController {
 
 	@RequestMapping(value = "/categories", method = RequestMethod.GET)
 	public String list(Model model, HttpServletRequest request) {
-		List<CategoryEntity> categories = this.categoryDAO.select();
+		Iterable<CategoryEntity> categories = this.categoryDAO.select(new Sort(Direction.ASC, "name"));
 		model.addAttribute("categories", categories);
 		return "categories.list";
 	}

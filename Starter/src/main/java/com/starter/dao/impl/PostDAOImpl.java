@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import com.starter.dao.PostDAO;
@@ -27,6 +28,11 @@ public class PostDAOImpl extends BaseDAOImpl implements PostDAO {
 	@Override
 	public List<PostEntity> select() {
 		return this.postRepository.findAll();
+	}
+
+	@Override
+	public Iterable<PostEntity> select(Sort sort) {
+		return this.postRepository.findAll(sort);
 	}
 
 	@Override

@@ -14,6 +14,8 @@
 	<thead>
 		<tr>
 			<th>Name</th>
+			<th>Published At</th>
+			<th>Link</th>
 			<th data-width="209">Actions</th>
 		</tr>
 	</thead>
@@ -23,6 +25,8 @@
 		<c:forEach items="${posts}" var="post">
 			<tr>
 				<td>${post.title}</td>
+				<td>${post.publishedAt}</td>
+				<td>${post.alias}</td>
 				<td>
 					<div class="btn-group">
 						<a href="/posts/${post.id}" class="btn btn-sm btn-primary">

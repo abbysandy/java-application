@@ -1,13 +1,13 @@
 package com.starter.dao.impl;
 
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import com.starter.dao.CategoryDAO;
@@ -25,8 +25,13 @@ public class CategoryDAOImpl extends BaseDAOImpl implements CategoryDAO {
 	private UserDAO				userDAO;
 
 	@Override
-	public List<CategoryEntity> select() {
+	public Iterable<CategoryEntity> select() {
 		return this.categoryRepository.findAll();
+	}
+
+	@Override
+	public Iterable<CategoryEntity> select(Sort sort) {
+		return this.categoryRepository.findAll(sort);
 	}
 
 	@Override

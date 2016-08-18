@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import com.starter.dao.TagDAO;
@@ -27,6 +28,11 @@ public class TagDAOImpl extends BaseDAOImpl implements TagDAO {
 	@Override
 	public List<TagEntity> select() {
 		return this.tagRepository.findAll();
+	}
+
+	@Override
+	public Iterable<TagEntity> select(Sort sort) {
+		return this.tagRepository.findAll(sort);
 	}
 
 	@Override

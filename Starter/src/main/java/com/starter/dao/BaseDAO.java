@@ -1,14 +1,16 @@
 package com.starter.dao;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 public interface BaseDAO<T> {
 
-	public List<T> select();
+	public Iterable<T> select();
+
+	public Iterable<T> select(Sort sort);
 
 	public Page<T> select(Pageable pageable);
 

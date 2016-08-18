@@ -1,6 +1,6 @@
+
 package com.starter.controllers;
 
-import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.starter.dao.CategoryDAO;
 import com.starter.dao.PostDAO;
+import com.starter.dao.TagDAO;
+import com.starter.dao.UserDAO;
 import com.starter.entities.PostEntity;
 import com.starter.forms.PostForm;
 
@@ -24,11 +30,20 @@ import com.starter.forms.PostForm;
 public class PostController extends BaseController {
 
 	@Autowired
-	private PostDAO postDAO;
+	private PostDAO		postDAO;
+
+	@Autowired
+	private CategoryDAO	categoryDAO;
+
+	@Autowired
+	private TagDAO		tagDAO;
+
+	@Autowired
+	private UserDAO		userDAO;
 
 	@RequestMapping(value = "/posts", method = RequestMethod.GET)
 	public String list(Model model, HttpServletRequest request) {
-		List<PostEntity> posts = this.postDAO.select();
+		Iterable<PostEntity> posts = this.postDAO.select();
 		model.addAttribute("posts", posts);
 		return "posts.list";
 	}
@@ -48,6 +63,7 @@ public class PostController extends BaseController {
 	@RequestMapping(value = "/posts/new", method = RequestMethod.GET)
 	public String newPost(Model model) {
 		model.addAttribute("postForm", new PostForm());
+		this.formData(model);
 		return "posts.new";
 	}
 
@@ -58,6 +74,7 @@ public class PostController extends BaseController {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			model.addAttribute("org.springframework.validation.BindingResult.postForm", binding);
 			model.addAttribute("post", postForm);
+			this.formData(model);
 			return "posts.new";
 		}
 
@@ -75,6 +92,7 @@ public class PostController extends BaseController {
 		}
 
 		model.addAttribute("post", post);
+		this.formData(model);
 
 		if (model.containsAttribute("postForm")) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -114,50 +132,10 @@ public class PostController extends BaseController {
 		return "redirect:/posts";
 	}
 
-}
+	private void formData(Model model) {
+		model.addAttribute("users", this.userDAO.select(new Sort(new Order(Direction.ASC, "firstName"), new Order(Direction.ASC, "lastName"))));
+		model.addAttribute("categories", this.categoryDAO.select(new Sort(Direction.ASC, "name")));
+		model.addAttribute("tags", this.tagDAO.select(new Sort(Direction.ASC, "name")));
+	}
 
-// CategoryEntity category = new CategoryEntity();
-//
-// category.setId(UUID.randomUUID());
-// category.setName(UUID.randomUUID().toString());
-// category.setCreatedAt(new Date());
-// category.setUpdatedAt(new Date());
-// category.setCreatedBy(this.userDAO.getCurrentUser());
-// category.setUpdatedBy(this.userDAO.getCurrentUser());
-//
-// this.categoryRepository.save(category);
-//
-// // -----------------------------
-//
-// TagEntity tag = new TagEntity();
-//
-// tag.setId(UUID.randomUUID());
-// tag.setName(UUID.randomUUID().toString());
-// tag.setCreatedAt(new Date());
-// tag.setUpdatedAt(new Date());
-// tag.setCreatedBy(this.userDAO.getCurrentUser());
-// tag.setUpdatedBy(this.userDAO.getCurrentUser());
-//
-// this.tagRepository.save(tag);
-//
-// // -----------------------------
-//
-// PostEntity post = new PostEntity();
-//
-// post.setId(UUID.randomUUID());
-// post.setTitle(UUID.randomUUID().toString());
-// post.setAlias(UUID.randomUUID().toString());
-// post.setContent(UUID.randomUUID().toString());
-//
-// post.setCreatedAt(new Date());
-// post.setUpdatedAt(new Date());
-// post.setPublishedAt(new Date());
-//
-// post.setAuthoredBy(this.userDAO.getCurrentUser());
-// post.setCreatedBy(this.userDAO.getCurrentUser());
-// post.setUpdatedBy(this.userDAO.getCurrentUser());
-//
-// post.setCategories(this.categoryRepository.findAll());
-// post.setTags(this.tagRepository.findAll());
-//
-// this.postRepository.save(post);
+}
