@@ -11,15 +11,20 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.starter.providers.StarterAuthenticationProvider;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private DataSource		dataSource;
+	private DataSource						dataSource;
 
 	@Autowired
-	private PasswordEncoder	passwordEncoder;
+	private PasswordEncoder					passwordEncoder;
+
+	@Autowired
+	private StarterAuthenticationProvider	starterAuthenticationProvider;
 
 	@Autowired
 	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
@@ -33,6 +38,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		httpSecurity.authorizeRequests().antMatchers("/login", "/registration", "/webjars/**", "/assets/**").permitAll().anyRequest().authenticated();
 		httpSecurity.formLogin().loginPage("/login").failureUrl("/login?error").usernameParameter("userName").passwordParameter("password");
 		httpSecurity.logout().logoutUrl("/logout").logoutSuccessUrl("/login?logout");
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(this.starterAuthenticationProvider);
 	}
 
 }
