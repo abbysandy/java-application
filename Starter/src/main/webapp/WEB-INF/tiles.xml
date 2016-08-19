@@ -14,7 +14,7 @@
 	</definition>
 	<definition name="layout.error" template="/WEB-INF/layout/error.jsp"></definition>
 	
-	<!-- Authentication -->
+	<!-- Login -->
 	<definition name="login.login" extends="layout.login">
 		<put-attribute name="navId" value="login" cascade="true" />
 		<put-attribute name="body" value="/WEB-INF/login/login.jsp" cascade="true" />
@@ -30,6 +30,10 @@
 	<definition name="login.forgot-password-sent" extends="layout.login">
 		<put-attribute name="navId" value="forgot-password" cascade="true" />
 		<put-attribute name="body" value="/WEB-INF/login/forgot-password-sent.jsp" cascade="true" />
+	</definition>
+	<definition name="login.change-password" extends="layout.login">
+		<put-attribute name="navId" value="change-password" cascade="true" />
+		<put-attribute name="body" value="/WEB-INF/login/change-password.jsp" cascade="true" />
 	</definition>
 	
 	<!-- Homepage -->

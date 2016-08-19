@@ -3,35 +3,36 @@ Full Featured Spring Boot Application
 
 TODO
 
-	Pagination
+	Pagination (in progress)
 
 	Filters
 
 	Search
 
-	Confirm Delete - still needs polish
+	Confirm Delete - (in progress)
 
-	Redirect From Login page if already authenticated
-
-	Posts module
+	Posts module (in progress)
 
 	Email confirmation page of registration and activation
 
 	Environment Profiles, dev, qa, prod, etc
 
 	SASS for css
+	Reorganize css
+	Messages UI css
+
+	Redirect flash messages
 
 	Edit in DAO Impl, not happy with it
 
-	Responsive table
+	Responsive table (in progress)
 
 	User Roles
 
-	Rename AuthenticationController, it's stupid
-
 	Last Logged In Date for user
 
-	Forgot password - request username
 	Forgot username - request email address
 
 	Text Message or email dual auth
+
+	Tests
