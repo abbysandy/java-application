@@ -30,3 +30,8 @@ TODO
 	Rename AuthenticationController, it's stupid
 
 	Last Logged In Date for user
+
+	Forgot password - request username
+	Forgot username - request email address
+
+	Text Message or email dual auth

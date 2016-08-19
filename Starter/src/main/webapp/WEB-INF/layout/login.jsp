@@ -8,7 +8,7 @@
 	
 	<ul class="nav nav-tabs">
 		<li <c:if test="${navId eq 'login'}">class="active"</c:if>><a href="/login">Login</a></li>
-		<li <c:if test="${navId eq 'registration'}">class="active"</c:if>><a href="/registration">Register</a></li>
+		<li <c:if test="${navId eq 'registration'}">class="active"</c:if>><a href="/login/registration">Register</a></li>
 	</ul>
 	
 	<div class="container-body">

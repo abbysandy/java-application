@@ -21,7 +21,7 @@ import com.starter.forms.UserRegistrationForm;
 import com.starter.validators.UserRegistrationValidator;
 
 @Controller
-public class AuthenticationController extends BaseController {
+public class LoginController extends BaseController {
 
 	@Autowired
 	private UserDAO						userDAO;
@@ -40,23 +40,23 @@ public class AuthenticationController extends BaseController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
 		model.addAttribute("userAuthenticationForm", new UserAuthenticationForm());
-		return "authentication.login";
+		return "login.login";
 	}
 
-	@RequestMapping(value = "/registration", method = RequestMethod.GET)
+	@RequestMapping(value = "/login/registration", method = RequestMethod.GET)
 	public String registration(Model model) {
 		model.addAttribute("userRegistrationForm", new UserRegistrationForm());
-		return "authentication.registration";
+		return "login.registration";
 	}
 
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
+	@RequestMapping(value = "/login/registration", method = RequestMethod.POST)
 	public String register(HttpServletResponse response, Model model, @Valid @ModelAttribute("UserRegistrationValidator") UserRegistrationForm userRegistrationForm, BindingResult binding, RedirectAttributes attr) {
 
 		if (binding.hasErrors()) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			model.addAttribute("org.springframework.validation.BindingResult.userRegistrationForm", binding);
 			model.addAttribute("userRegistrationForm", userRegistrationForm);
-			return "authentication.registration";
+			return "login.registration";
 		}
 
 		userRegistrationForm.setPassword(this.passwordEncoder.encode(userRegistrationForm.getPassword()));

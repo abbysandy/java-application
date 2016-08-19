@@ -4,8 +4,8 @@
 	
 	<!-- Layouts -->
 	<definition name="layout.base" template="/WEB-INF/layout/base.jsp"></definition>
-	<definition name="layout.authentication" extends="layout.base">
-		<put-attribute name="layout" value="/WEB-INF/layout/authentication.jsp" cascade="true" />
+	<definition name="layout.login" extends="layout.base">
+		<put-attribute name="layout" value="/WEB-INF/layout/login.jsp" cascade="true" />
 	</definition>
 	<definition name="layout.basic" extends="layout.base">
 		<put-attribute name="navigation" value="/WEB-INF/components/navigation.jsp" cascade="true" />
@@ -15,13 +15,13 @@
 	<definition name="layout.error" template="/WEB-INF/layout/error.jsp"></definition>
 	
 	<!-- Authentication -->
-	<definition name="authentication.login" extends="layout.authentication">
+	<definition name="login.login" extends="layout.login">
 		<put-attribute name="navId" value="login" cascade="true" />
-		<put-attribute name="body" value="/WEB-INF/authentication/login.jsp" cascade="true" />
+		<put-attribute name="body" value="/WEB-INF/login/login.jsp" cascade="true" />
 	</definition>
-	<definition name="authentication.registration" extends="layout.authentication">
+	<definition name="login.registration" extends="layout.login">
 		<put-attribute name="navId" value="registration" cascade="true" />
-		<put-attribute name="body" value="/WEB-INF/authentication/registration.jsp" cascade="true" />
+		<put-attribute name="body" value="/WEB-INF/login/registration.jsp" cascade="true" />
 	</definition>
 	
 	<!-- Homepage -->

@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<form:form modelAttribute="userRegistrationForm" action="/registration" method="POST" class="form-horizontal">
+<form:form modelAttribute="userRegistrationForm" action="/login/registration" method="POST" class="form-horizontal">
 	<form:errors path="*" class="form-errors" />
 	
 	<div class="panel panel-default">
