@@ -1,5 +1,7 @@
 package com.starter.entities;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -46,6 +48,12 @@ public class UserEntity extends BaseEntity {
 
 	@Column
 	private boolean	enabled;
+
+	@Column
+	private String	forgotPasswordKey;
+
+	@Column
+	private Date	lastLoggedInAt;
 
 	public String getUserName() {
 		return this.userName;
@@ -149,6 +157,22 @@ public class UserEntity extends BaseEntity {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getForgotPasswordKey() {
+		return this.forgotPasswordKey;
+	}
+
+	public void setForgotPasswordKey(String forgotPasswordKey) {
+		this.forgotPasswordKey = forgotPasswordKey;
+	}
+
+	public Date getLastLoggedInAt() {
+		return this.lastLoggedInAt;
+	}
+
+	public void setLastLoggedInAt(Date lastLoggedInAt) {
+		this.lastLoggedInAt = lastLoggedInAt;
 	}
 
 	public String getFullName() {

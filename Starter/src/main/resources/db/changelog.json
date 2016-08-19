@@ -163,7 +163,7 @@
                     }]
                 },
                 "update": {
-                      "tableName": "users",
+                    "tableName": "users",
                     "columns": [{
                         "column": {
                             "name": "enabled",
@@ -701,6 +701,33 @@
                     "referencedTableName": "tags",
                     "onDelete": "CASCADE",
                     "onUpdate": "CASCADE"
+                }
+            }]
+        }
+    }, {
+        "changeSet": {
+            "id": "user-login",
+            "author": "brettmeyer",
+            "changes": [{
+                "addColumn": {
+                    "tableName": "users",
+                    "columns": [{
+                        "column": {
+                            "name": "last_logged_in_at",
+                            "type": "datetime",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "forgot_password_key",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }]
                 }
             }]
         }

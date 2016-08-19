@@ -36,3 +36,10 @@ TODO
 	Text Message or email dual auth
 
 	Tests
+
+	Documentation of course...
+
+	Better way of handling mailing templates - fix vm console errors
+
+	UserName - must be one word
+	Password - minimum length

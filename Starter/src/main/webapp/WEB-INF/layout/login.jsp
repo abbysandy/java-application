@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="navId"><tiles:getAsString name="navId" /></c:set>
 	
-<div class="container login-container">
+<div class="container login-container ${navId}">
 
 	<h1>Starter Project</h1>
 	

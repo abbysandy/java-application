@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.starter.dao.UserDAO;
@@ -24,7 +25,10 @@ import com.starter.repositories.UserRepository;
 public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepository	userRepository;
+
+	@Autowired
+	private PasswordEncoder	passwordEncoder;
 
 	@Override
 	public List<UserEntity> select() {
@@ -49,6 +53,11 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 	@Override
 	public UserEntity selectByUserName(String userName) {
 		return this.userRepository.findByUserName(userName);
+	}
+
+	@Override
+	public UserEntity selectByForgotPasswordKey(String forgotPasswordKey) {
+		return this.userRepository.findByForgotPasswordKey(forgotPasswordKey);
 	}
 
 	@Override
@@ -109,4 +118,19 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		return this.selectByUserName(authentication.getName());
 	}
 
+	@Override
+	public UserEntity login(String userName, String password) {
+		UserEntity user = this.selectByUserName(userName);
+		if (user == null) {
+			return null;
+		}
+
+		boolean match = this.passwordEncoder.matches(password, user.getPassword());
+		if (!match) {
+			return null;
+		}
+
+		user.setLastLoggedInAt(new Date());
+		return this.update(user, null);
+	}
 }

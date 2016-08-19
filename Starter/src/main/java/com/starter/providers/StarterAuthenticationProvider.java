@@ -10,7 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.starter.dao.UserDAO;
@@ -20,30 +19,22 @@ import com.starter.entities.UserEntity;
 public class StarterAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
-	private UserDAO			userDAO;
-
-	@Autowired
-	private PasswordEncoder	passwordEncoder;
+	private UserDAO userDAO;
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		String userName = authentication.getName();
-		String password = authentication.getCredentials().toString();
+		String name = authentication.getName();
+		Object credentials = authentication.getCredentials();
 
-		UserEntity user = this.userDAO.selectByUserName(userName);
+		UserEntity user = this.userDAO.login(name, credentials.toString());
 		if (user == null) {
-			return null;
-		}
-
-		boolean match = this.passwordEncoder.matches(password, user.getPassword());
-		if (!match) {
 			return null;
 		}
 
 		List<GrantedAuthority> grantedAuths = new ArrayList<>();
 		grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
 		grantedAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-		return new UsernamePasswordAuthenticationToken(userName, authentication.getCredentials(), grantedAuths);
+		return new UsernamePasswordAuthenticationToken(name, credentials, grantedAuths);
 	}
 
 	@Override

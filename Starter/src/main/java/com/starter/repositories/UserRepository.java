@@ -11,4 +11,6 @@ public interface UserRepository extends BaseRepository<UserEntity, UUID> {
 
 	public UserEntity findByUserName(String username);
 
+	public UserEntity findByForgotPasswordKey(String forgotPasswordKey);
+
 }

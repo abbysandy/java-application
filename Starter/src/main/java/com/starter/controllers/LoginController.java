@@ -1,10 +1,9 @@
 package com.starter.controllers;
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.UUID;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -26,8 +25,11 @@ import com.starter.dao.UserDAO;
 import com.starter.entities.UserEntity;
 import com.starter.forms.UserForgotPasswordForm;
 import com.starter.forms.UserLoginForm;
+import com.starter.forms.UserPasswordForm;
 import com.starter.forms.UserRegistrationForm;
 import com.starter.service.MailService;
+import com.starter.utils.HashUtil;
+import com.starter.validators.ConfirmPasswordValidator;
 import com.starter.validators.UserForgotPasswordValidator;
 import com.starter.validators.UserRegistrationValidator;
 
@@ -49,6 +51,9 @@ public class LoginController extends BaseController {
 	@Autowired
 	private UserForgotPasswordValidator	userForgotPasswordValidator;
 
+	@Autowired
+	private ConfirmPasswordValidator	confirmPasswordValidator;
+
 	@InitBinder("UserRegistrationValidator")
 	public void initUserNameAvailableValidatorBinder(WebDataBinder binder) {
 		binder.addValidators(this.userRegistrationValidator);
@@ -59,8 +64,13 @@ public class LoginController extends BaseController {
 		binder.addValidators(this.userForgotPasswordValidator);
 	}
 
+	@InitBinder("ConfirmPasswordValidator")
+	public void initConfirmPasswordValidatorBinder(WebDataBinder binder) {
+		binder.addValidators(this.confirmPasswordValidator);
+	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model) {
+	public String login(Model model, HttpServletRequest request) {
 		model.addAttribute("userLoginForm", new UserLoginForm());
 		return "login.login";
 	}
@@ -77,7 +87,6 @@ public class LoginController extends BaseController {
 		if (binding.hasErrors()) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			model.addAttribute("org.springframework.validation.BindingResult.userRegistrationForm", binding);
-			model.addAttribute("userRegistrationForm", userRegistrationForm);
 			return "login.registration";
 		}
 
@@ -99,17 +108,19 @@ public class LoginController extends BaseController {
 		if (binding.hasErrors()) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			model.addAttribute("org.springframework.validation.BindingResult.userForgotPasswordForm", binding);
-			model.addAttribute("userForgotPasswordForm", userForgotPasswordForm);
 			return "login.forgot-password";
 		}
 
 		UserEntity user = this.userDAO.selectByUserName(userForgotPasswordForm.getUserName());
-		String key = this.randomHash();
+
+		String key = HashUtil.randomHash();
+		user.setForgotPasswordKey(key);
+		this.userDAO.update(user, null);
 
 		VelocityContext ctx = new VelocityContext();
 		ctx.put("firstName", user.getFirstName());
 		ctx.put("key", key);
-		this.mailService.send(user.getEmailAddress(), "brettalanmeyer@gmail.com", "Starter Password Request", "templates/email/forgot-password.vm", ctx);
+		this.mailService.send(user.getEmailAddress(), "brettmeyerxpx@gmail.com", "Starter Password Request", "templates/email/forgot-password.vm", ctx);
 
 		attr.addFlashAttribute("emailAddress", user.getEmailAddress());
 		return "redirect:/login/forgot-password/sent";
@@ -125,26 +136,42 @@ public class LoginController extends BaseController {
 		return "login.forgot-password-sent";
 	}
 
+	@RequestMapping(value = "/login/change-password/invalid", method = RequestMethod.GET)
+	public String changePassword() {
+		return "login.change-password-invalid";
+	}
+
 	@RequestMapping(value = "/login/change-password/{key}", method = RequestMethod.GET)
 	public String changePassword(@PathVariable String key, Model model) {
+		UserEntity user = this.userDAO.selectByForgotPasswordKey(key);
+		if (user == null) {
+			return "redirect:/404";
+		}
+
+		model.addAttribute("key", key);
+		model.addAttribute("userPasswordForm", new UserPasswordForm());
 		return "login.change-password";
 	}
 
-	private String randomHash() throws NoSuchAlgorithmException {
-		return this.hash(UUID.randomUUID().toString());
-	}
+	@RequestMapping(value = "/login/change-password/{key}", method = RequestMethod.POST)
+	public String updatePassword(@PathVariable String key, HttpServletResponse response, Model model, @Valid @ModelAttribute("ConfirmPasswordValidator") UserPasswordForm userPasswordForm, BindingResult binding) {
+		UserEntity user = this.userDAO.selectByForgotPasswordKey(key);
 
-	private String hash(String input) throws NoSuchAlgorithmException {
-		MessageDigest md = MessageDigest.getInstance("SHA-256");
-		md.update(input.getBytes());
-		byte byteData[] = md.digest();
-
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < byteData.length; i++) {
-			sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+		if (user == null) {
+			return "redirect:/login/change-password/invalid";
 		}
 
-		return sb.toString();
+		if (binding.hasErrors()) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			model.addAttribute("org.springframework.validation.BindingResult.userPasswordForm", binding);
+			return "login.change-password";
+		}
+
+		userPasswordForm.setPassword(this.passwordEncoder.encode(userPasswordForm.getPassword()));
+		user.setForgotPasswordKey(null);
+		this.userDAO.update(user, userPasswordForm);
+
+		return "redirect:/login";
 	}
 
 }

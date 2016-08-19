@@ -35,6 +35,10 @@
 		<put-attribute name="navId" value="change-password" cascade="true" />
 		<put-attribute name="body" value="/WEB-INF/login/change-password.jsp" cascade="true" />
 	</definition>
+	<definition name="login.change-password-invalid" extends="layout.login">
+		<put-attribute name="navId" value="change-password" cascade="true" />
+		<put-attribute name="body" value="/WEB-INF/login/change-password-invalid.jsp" cascade="true" />
+	</definition>
 	
 	<!-- Homepage -->
 	<definition name="main" extends="layout.basic">
