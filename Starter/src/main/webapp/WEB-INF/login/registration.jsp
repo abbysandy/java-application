@@ -13,8 +13,8 @@
 		<div class="panel-body">
 			
 			<div class="form-group">
-				<label for="field-userName" class="control-label col-sm-2">User Name</label>
-				<div class="col-sm-10">
+				<label for="field-userName" class="control-label col-sm-3">User Name</label>
+				<div class="col-sm-9">
 					<div class="input-group">
 						<div class="input-group-addon" title="Required">
 							<span class="glyphicon glyphicon-ok"></span>
@@ -26,8 +26,8 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="field-password" class="control-label col-sm-2">Password</label>
-				<div class="col-sm-10">
+				<label for="field-password" class="control-label col-sm-3">Password</label>
+				<div class="col-sm-9">
 					<div class="input-group">
 						<div class="input-group-addon" title="Required">
 							<span class="glyphicon glyphicon-ok"></span>
@@ -39,8 +39,8 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="field-confirmPassword" class="control-label col-sm-2">Confirm Password</label>
-				<div class="col-sm-10">
+				<label for="field-confirmPassword" class="control-label col-sm-3">Confirm Password</label>
+				<div class="col-sm-9">
 					<div class="input-group">
 						<div class="input-group-addon" title="Required">
 							<span class="glyphicon glyphicon-ok"></span>
@@ -60,8 +60,8 @@
 		<div class="panel-body">
 			
 			<div class="form-group">
-				<label for="field-firstName" class="control-label col-sm-2">First Name</label>
-				<div class="col-sm-10">
+				<label for="field-firstName" class="control-label col-sm-3">First Name</label>
+				<div class="col-sm-9">
 					<div class="input-group">
 						<div class="input-group-addon" title="Required">
 							<span class="glyphicon glyphicon-ok"></span>
@@ -73,8 +73,8 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="field-lastName" class="control-label col-sm-2">Last Name</label>
-				<div class="col-sm-10">
+				<label for="field-lastName" class="control-label col-sm-3">Last Name</label>
+				<div class="col-sm-9">
 					<div class="input-group">
 						<div class="input-group-addon" title="Required">
 							<span class="glyphicon glyphicon-ok"></span>
@@ -86,8 +86,8 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="field-emailAddress" class="control-label col-sm-2">Email Address</label>
-				<div class="col-sm-10">
+				<label for="field-emailAddress" class="control-label col-sm-3">Email Address</label>
+				<div class="col-sm-9">
 					<div class="input-group">
 						<div class="input-group-addon" title="Required">
 							<span class="glyphicon glyphicon-ok"></span>

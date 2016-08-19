@@ -23,6 +23,14 @@
 		<put-attribute name="navId" value="registration" cascade="true" />
 		<put-attribute name="body" value="/WEB-INF/login/registration.jsp" cascade="true" />
 	</definition>
+	<definition name="login.forgot-password" extends="layout.login">
+		<put-attribute name="navId" value="forgot-password" cascade="true" />
+		<put-attribute name="body" value="/WEB-INF/login/forgot-password.jsp" cascade="true" />
+	</definition>
+	<definition name="login.forgot-password-sent" extends="layout.login">
+		<put-attribute name="navId" value="forgot-password" cascade="true" />
+		<put-attribute name="body" value="/WEB-INF/login/forgot-password-sent.jsp" cascade="true" />
+	</definition>
 	
 	<!-- Homepage -->
 	<definition name="main" extends="layout.basic">

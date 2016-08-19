@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css" media="screen" />
 		<link rel="stylesheet" href="/webjars/select2/4.0.2/dist/css/select2.min.css" media="screen" />
 		<link rel="stylesheet" href="/assets/stylesheets/all.css" media="screen" />
-		<link rel="stylesheet" href="/assets/stylesheets/authentication.css" media="screen" />
+		<link rel="stylesheet" href="/assets/stylesheets/login.css" media="screen" />
 		<link rel="stylesheet" href="/assets/stylesheets/editable-form.css" media="screen" />
 		<link rel="stylesheet" href="/assets/stylesheets/errors.css" media="screen" />
 		<link rel="stylesheet" href="/assets/stylesheets/pagination.css" media="screen" />

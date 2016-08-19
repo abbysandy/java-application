@@ -1,0 +1,21 @@
+.login-container {
+	background: #f8f8f8;
+	border: solid 1px #e7e7e7;
+	border-radius: 8px;
+	padding: 24px;
+	max-width: 720px;
+}
+
+.login-container .container-body {
+	background: #fff;
+	border: solid 1px #e7e7e7;
+	border-top: none;
+	padding: 16px;
+	overflow: hidden;
+}
+
+.login-container .forgot-password-link {
+	float: right;
+	margin-top: 16px;
+	font-size: 16px;
+}

@@ -1,6 +1,6 @@
 package com.starter.forms;
 
-public class UserAuthenticationForm {
+public class UserLoginForm {
 
 	private String	userName;
 	private String	password;
