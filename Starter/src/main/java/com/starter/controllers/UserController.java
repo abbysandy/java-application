@@ -109,7 +109,6 @@ public class UserController extends BaseController {
 		if (binding.hasErrors()) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			model.addAttribute("org.springframework.validation.BindingResult.userForm", binding);
-			model.addAttribute("user", userForm);
 			return "users.new";
 		}
 

@@ -58,7 +58,6 @@ public class TagController extends BaseController {
 		if (binding.hasErrors()) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			model.addAttribute("org.springframework.validation.BindingResult.tagForm", binding);
-			model.addAttribute("tag", tagForm);
 			return "tags.new";
 		}
 

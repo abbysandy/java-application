@@ -73,7 +73,6 @@ public class PostController extends BaseController {
 		if (binding.hasErrors()) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			model.addAttribute("org.springframework.validation.BindingResult.postForm", binding);
-			model.addAttribute("post", postForm);
 			this.formData(model);
 			return "posts.new";
 		}

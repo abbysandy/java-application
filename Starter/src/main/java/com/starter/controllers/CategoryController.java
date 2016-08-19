@@ -58,7 +58,6 @@ public class CategoryController extends BaseController {
 		if (binding.hasErrors()) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			model.addAttribute("org.springframework.validation.BindingResult.categoryForm", binding);
-			model.addAttribute("category", categoryForm);
 			return "categories.new";
 		}
 
