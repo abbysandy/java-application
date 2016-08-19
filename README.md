@@ -43,3 +43,5 @@ TODO
 
 	UserName - must be one word
 	Password - minimum length
+
+	Get error pages working for unauthenticated pages - a few redirects to 404 in LoginController

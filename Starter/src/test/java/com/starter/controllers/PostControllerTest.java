@@ -14,10 +14,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.starter.dao.CategoryDAO;
 import com.starter.dao.PostDAO;
+import com.starter.dao.TagDAO;
+import com.starter.dao.UserDAO;
 import com.starter.entities.PostEntity;
 import com.starter.forms.PostForm;
 
@@ -25,6 +29,15 @@ public class PostControllerTest extends BaseControllerTest {
 
 	@Mock
 	private PostDAO			postDAO;
+
+	@Mock
+	private UserDAO			userDAO;
+
+	@Mock
+	private CategoryDAO		categoryDAO;
+
+	@Mock
+	private TagDAO			tagDAO;
 
 	@InjectMocks
 	private PostController	postController;
@@ -42,6 +55,10 @@ public class PostControllerTest extends BaseControllerTest {
 		postEntity.setId(this.id);
 		postEntity.setTitle("Title");
 		Mockito.when(this.postDAO.selectById(Mockito.any(UUID.class))).thenReturn(postEntity);
+
+		Mockito.when(this.userDAO.select(Mockito.any(Sort.class))).thenReturn(null);
+		Mockito.when(this.categoryDAO.select(Mockito.any(Sort.class))).thenReturn(null);
+		Mockito.when(this.tagDAO.select(Mockito.any(Sort.class))).thenReturn(null);
 
 		this.mockMvc = MockMvcBuilders.standaloneSetup(this.postController).build();
 	}

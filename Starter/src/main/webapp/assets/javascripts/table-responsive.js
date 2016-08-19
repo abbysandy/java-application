@@ -1,5 +1,5 @@
 $(function(){
 	
-	console.log($(".table-responsive"));
+//	console.log($(".table-responsive"));
 	
 });
