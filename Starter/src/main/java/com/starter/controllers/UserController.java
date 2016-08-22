@@ -1,8 +1,5 @@
 package com.starter.controllers;
 
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +9,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +28,7 @@ import com.starter.forms.UserPasswordForm;
 import com.starter.service.TableColumnService;
 import com.starter.tables.UserTableColumns;
 import com.starter.utils.PaginationUtil;
+import com.starter.utils.SortUtil;
 import com.starter.validators.ConfirmPasswordValidator;
 import com.starter.validators.UserNameAvailableValidator;
 
@@ -69,24 +65,9 @@ public class UserController extends BaseController {
 		Pageable pageable = PaginationUtil.pageable(UserEntity.class, request);
 		Page<UserEntity> users = this.userDAO.select(pageable);
 
-		Map<String, String> sortable = new HashMap<>();
-		Sort sort = pageable.getSort();
-		if (sort != null) {
-			Field[] fields = UserEntity.class.getDeclaredFields();
-			for (Field field : fields) {
-				Order orderFor = sort.getOrderFor(field.getName());
-
-				sortable.put(field.getName(), "");
-
-				if (orderFor != null) {
-					sortable.put(field.getName(), orderFor.getDirection().toString().toLowerCase());
-				}
-			}
-		}
-
 		UserTableColumns userTableColumns = this.tableColumnService.load(UserTableColumns.class, "users");
 
-		model.addAttribute("sortable", sortable);
+		model.addAttribute("sortable", SortUtil.Sort(UserEntity.class, pageable));
 		model.addAttribute("pagination", PaginationUtil.pagination("/users", pageable, users));
 		model.addAttribute("users", users.getContent());
 		model.addAttribute("userTableColumns", userTableColumns);
