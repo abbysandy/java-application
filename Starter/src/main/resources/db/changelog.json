@@ -731,5 +731,76 @@
                 }
             }]
         }
+    }, {
+        "changeSet": {
+            "id": "table-columns",
+            "author": "brettmeyer",
+            "changes": [{
+                "createTable": {
+                    "tableName": "table_columns",
+                    "columns": [{
+                        "column": {
+                            "name": "id",
+                            "type": "int",
+                            "autoIncrement": true,
+                            "constraints": [{
+                                "primaryKey": true,
+                                "nullable": false
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "user_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "section",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "name",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "visible",
+                            "type": "tinyint",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "created_at",
+                            "type": "datetime",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }]
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "table_columns",
+                    "baseColumnNames": "user_id",
+                    "constraintName": "fk_table_columns_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }]
+        }
     }]
 }

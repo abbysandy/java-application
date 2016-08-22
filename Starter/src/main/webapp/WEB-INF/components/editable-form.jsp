@@ -1,6 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<form:form id="editable-form" class="editable-form form-inline">
+<form:form id="editable-form" action="/" class="editable-form form-inline">
 
 	<div class="form-group">
 		

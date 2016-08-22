@@ -24,9 +24,12 @@ $(function(){
 		$.ajax({
 			url: form.attr("action"),
 			method: "PATCH",
+			dataType: "json",
 			data: data
 		}).success(function(response){
-			$("[data-editable]").find(".editing").find(".editable-display").html(data.value);
+			var editing = $("[data-editable]").find(".editing");
+			editing.data("editable-value", data.value);
+			editing.find(".editable-display").html(data.value);
 			$("[data-editable]").find(".editable-field").removeClass("editing");
 			form.hide();
 		}).error(function(response){
@@ -39,7 +42,6 @@ $(function(){
 				newFormError.find(".message").html(error.defaultMessage);
 				formErrors.append(newFormError);
 			}
-			
 		});
 		
 		return false;

@@ -45,3 +45,16 @@ TODO
 	Password - minimum length
 
 	Get error pages working for unauthenticated pages - a few redirects to 404 in LoginController
+
+	Table Optional Columns - Look at Amazon AWS pages for examples
+
+	Menu History - latest sections
+
+	Grid Checkboxes for multiple options
+
+	Translations
+
+	prefix js classes with js-
+
+	Help Page
+

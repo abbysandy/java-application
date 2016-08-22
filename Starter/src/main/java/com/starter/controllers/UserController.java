@@ -30,6 +30,8 @@ import com.starter.dao.UserDAO;
 import com.starter.entities.UserEntity;
 import com.starter.forms.UserForm;
 import com.starter.forms.UserPasswordForm;
+import com.starter.service.TableColumnService;
+import com.starter.tables.UserTableColumns;
 import com.starter.utils.PaginationUtil;
 import com.starter.validators.ConfirmPasswordValidator;
 import com.starter.validators.UserNameAvailableValidator;
@@ -42,6 +44,9 @@ public class UserController extends BaseController {
 
 	@Autowired
 	private PasswordEncoder				passwordEncoder;
+
+	@Autowired
+	private TableColumnService			tableColumnService;
 
 	@Autowired
 	private UserNameAvailableValidator	userNameAvailableValidator;
@@ -60,7 +65,7 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public String list(Model model, HttpServletRequest request) {
+	public String list(Model model, HttpServletRequest request) throws Exception {
 		Pageable pageable = PaginationUtil.pageable(UserEntity.class, request);
 		Page<UserEntity> users = this.userDAO.select(pageable);
 
@@ -79,9 +84,12 @@ public class UserController extends BaseController {
 			}
 		}
 
+		UserTableColumns userTableColumns = this.tableColumnService.load(UserTableColumns.class, "users");
+
 		model.addAttribute("sortable", sortable);
 		model.addAttribute("pagination", PaginationUtil.pagination("/users", pageable, users));
 		model.addAttribute("users", users.getContent());
+		model.addAttribute("userTableColumns", userTableColumns);
 		return "users.list";
 	}
 

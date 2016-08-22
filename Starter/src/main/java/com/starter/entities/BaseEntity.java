@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
-import com.fasterxml.jackson.annotation.JsonRawValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @MappedSuperclass
 public abstract class BaseEntity {
@@ -18,11 +18,11 @@ public abstract class BaseEntity {
 	private UUID		id;
 
 	@ManyToOne
-	@JsonRawValue(value = true)
+	@JsonIgnore
 	private UserEntity	createdBy;
 
 	@ManyToOne
-	@JsonRawValue(value = true)
+	@JsonIgnore
 	private UserEntity	updatedBy;
 
 	@Column

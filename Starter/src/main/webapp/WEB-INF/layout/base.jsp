@@ -27,6 +27,7 @@
 		<script src="/assets/javascripts/form-errors.js"></script>
 		<script src="/assets/javascripts/table-formatting.js"></script>
 		<script src="/assets/javascripts/table-responsive.js"></script>
+		<script src="/assets/javascripts/table-columns.js"></script>
 		<script src="/assets/javascripts/select2.js"></script>
 		
 	</body>

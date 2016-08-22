@@ -1,11 +1,13 @@
 package com.starter.controllers.api;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.starter.dao.UserDAO;
 import com.starter.entities.UserEntity;
 import com.starter.forms.UserForm;
+import com.starter.service.TableColumnService;
+import com.starter.tables.UserTableColumns;
 import com.starter.validators.UserNameAvailableValidator;
 
 @Controller
@@ -29,11 +33,14 @@ public class UserControllerAPI extends BaseControllerAPI {
 	private UserDAO						userDAO;
 
 	@Autowired
+	private TableColumnService			tableColumnService;
+
+	@Autowired
 	private UserNameAvailableValidator	userNameAvailableValidator;
 
 	@ResponseBody
 	@RequestMapping(value = "/api/users/{id}", method = RequestMethod.PATCH)
-	public Map<String, Object> updateUser(@PathVariable UUID id, HttpServletResponse response, HttpServletRequest request) {
+	public Map<String, Object> updateUser(@PathVariable UUID id, HttpServletResponse response, HttpServletRequest request) throws IllegalAccessException, InvocationTargetException {
 		Map<String, Object> result = new HashMap<>();
 
 		UserEntity user = this.userDAO.selectById(id);
@@ -70,6 +77,16 @@ public class UserControllerAPI extends BaseControllerAPI {
 		this.userDAO.update(user, userForm);
 
 		result.put("user", user);
+		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/api/users/user-table-columns", method = RequestMethod.PUT)
+	public Map<String, Object> updateTableColumns(HttpServletResponse response, HttpServletRequest request, @Valid UserTableColumns userTableColumns) throws Exception {
+		Map<String, Object> result = new HashMap<>();
+
+		this.tableColumnService.save(UserTableColumns.class, userTableColumns, "users");
+
 		return result;
 	}
 

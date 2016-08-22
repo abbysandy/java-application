@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-public interface BaseDAO<T> {
+public interface BaseCrudDAO<T> {
 
 	public Iterable<T> select();
 

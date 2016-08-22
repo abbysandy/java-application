@@ -2,7 +2,7 @@ package com.starter.dao;
 
 import com.starter.entities.UserEntity;
 
-public interface UserDAO extends BaseDAO<UserEntity> {
+public interface UserDAO extends BaseCrudDAO<UserEntity> {
 
 	UserEntity getCurrentUser();
 
