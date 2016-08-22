@@ -125,6 +125,13 @@
 		<put-attribute name="body" value="/WEB-INF/tags/new.jsp" cascade="true" />
 	</definition>
 	
+	<!-- Help -->
+	<definition name="section.help" extends="layout.basic">
+		<put-attribute name="navId" value="help" cascade="true" />
+	</definition>
+	<definition name="help.index" extends="section.help">
+		<put-attribute name="body" value="/WEB-INF/help/index.jsp" cascade="true" />
+	</definition>
 	
 	<!-- Errors -->
 	<definition name="errors.400" extends="layout.error">
