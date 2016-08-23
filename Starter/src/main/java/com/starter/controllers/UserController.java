@@ -69,8 +69,8 @@ public class UserController extends BaseController {
 
 		model.addAttribute("sortable", SortUtil.Sort(UserEntity.class, pageable));
 		model.addAttribute("pagination", PaginationUtil.pagination("/users", pageable, users));
+		model.addAttribute("columns", userTableColumns);
 		model.addAttribute("users", users.getContent());
-		model.addAttribute("userTableColumns", userTableColumns);
 		return "users.list";
 	}
 
