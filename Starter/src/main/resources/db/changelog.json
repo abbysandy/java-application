@@ -802,5 +802,34 @@
                 }
             }]
         }
+    }, {
+        "changeSet": {
+            "id": "users-createdBy-updatedBy",
+            "author": "brettmeyer",
+            "changes": [{
+                "sql": {
+                    "sql": "
+                        UPDATE users
+                        SET users.created_by_id = (
+                            SELECT id
+                            FROM (
+                                SELECT u2.id
+                                FROM users u2
+                            ) AS sub_table
+                            ORDER BY RAND()
+                            LIMIT 1
+                        ), users.updated_by_id = (
+                            SELECT id
+                            FROM (
+                                SELECT u2.id
+                                FROM users u2
+                            ) AS sub_table
+                            ORDER BY RAND()
+                            LIMIT 1
+                        );
+                    ",
+                }
+            }]
+        }
     }]
 }
