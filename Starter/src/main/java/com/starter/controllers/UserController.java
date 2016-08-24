@@ -1,5 +1,6 @@
 package com.starter.controllers;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,14 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.starter.dao.TableColumnDAO;
 import com.starter.dao.UserDAO;
 import com.starter.entities.UserEntity;
 import com.starter.forms.UserForm;
 import com.starter.forms.UserPasswordForm;
-import com.starter.service.TableColumnService;
-import com.starter.tables.UserTableColumns;
+import com.starter.utils.Column;
+import com.starter.utils.ColumnUtil;
 import com.starter.utils.PaginationUtil;
-import com.starter.utils.SortUtil;
 import com.starter.validators.ConfirmPasswordValidator;
 import com.starter.validators.UserNameAvailableValidator;
 
@@ -39,10 +40,10 @@ public class UserController extends BaseController {
 	private UserDAO						userDAO;
 
 	@Autowired
-	private PasswordEncoder				passwordEncoder;
+	private TableColumnDAO				tableColumnDAO;
 
 	@Autowired
-	private TableColumnService			tableColumnService;
+	private PasswordEncoder				passwordEncoder;
 
 	@Autowired
 	private UserNameAvailableValidator	userNameAvailableValidator;
@@ -62,14 +63,27 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String list(Model model, HttpServletRequest request) throws Exception {
+		UserEntity user = this.userDAO.getCurrentUser();
 		Pageable pageable = PaginationUtil.pageable(UserEntity.class, request);
 		Page<UserEntity> users = this.userDAO.select(pageable);
 
-		UserTableColumns userTableColumns = this.tableColumnService.load(UserTableColumns.class, "users");
+		ColumnUtil columnUtil = new ColumnUtil(request);
+		columnUtil.add("id", "ID", true, false, true, true);
+		columnUtil.add("userName", "User Name", true, true, true, true);
+		columnUtil.add("firstName", "First Name", true, true, true, true);
+		columnUtil.add("middleName", "Middle Name", true, true, true, false);
+		columnUtil.add("lastName", "Last Name", true, true, true, true);
+		columnUtil.add("emailAddress", "Email Address", true, true, true, false);
+		columnUtil.add("phone", "Phone", true, true, true, false);
+		columnUtil.add("address", "Address", true, true, true, true);
+		columnUtil.add("city", "City", true, true, true, true);
+		columnUtil.add("state", "State", true, true, true, true);
+		columnUtil.add("zipCode", "Zip Code", true, true, true, true);
+		columnUtil.add("country", "Country", true, false, true, false);
+		List<Column> columns = columnUtil.getColumns(user, this.tableColumnDAO, "users");
 
-		model.addAttribute("sortable", SortUtil.Sort(UserEntity.class, pageable));
 		model.addAttribute("pagination", PaginationUtil.pagination("/users", pageable, users));
-		model.addAttribute("columns", userTableColumns);
+		model.addAttribute("columns", columns);
 		model.addAttribute("users", users.getContent());
 		return "users.list";
 	}

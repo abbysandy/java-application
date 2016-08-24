@@ -50,6 +50,9 @@ table {
 
 table.table > tbody > tr > td {
 	vertical-align: middle;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 table.table th.sortable {

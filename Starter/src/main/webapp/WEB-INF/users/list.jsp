@@ -27,93 +27,38 @@
 <table class="table table-bordered table-responsive" data-editable="users">
 	<thead>
 		<tr>
-			<th class="sortable ${sortable.userName} <c:if test="${not columns.userName}">hidden</c:if>" data-column="userName">
-				<a href="/users?size=${pagination.size}&sort=userName:asc">
-					User Name
-					<span class="dir"></span>
-				</a>
-			</th>
-			<th class="sortable ${sortable.firstName} <c:if test="${not columns.firstName}">hidden</c:if>" data-column="firstName">
-				<a href="/users?size=${pagination.size}&sort=firstName:asc">
-					First Name
-					<span class="dir"></span>
-				</a>
-			</th>
-			<th class="sortable ${sortable.middleName} <c:if test="${not columns.middleName}">hidden</c:if>" data-column="middleName">
-				<a href="/users?size=${pagination.size}&sort=middleName:asc">
-					Middle Name
-					<span class="dir"></span>
-				</a>
-			</th>
-			<th class="sortable ${sortable.lastName} <c:if test="${not columns.lastName}">hidden</c:if>" data-column="lastName">
-				<a href="/users?size=${pagination.size}&sort=lastName:asc">
-					Last Name
-					<span class="dir"></span>
-				</a>
-			</th>
-			<th class="sortable ${sortable.emailAddress} <c:if test="${not columns.emailAddress}">hidden</c:if>" data-column="emailAddress">
-				<a href="/users?size=${pagination.size}&sort=emailAddress:asc">
-					Email Address
-					<span class="dir"></span>
-				</a>
-			</th>
-			<th class="sortable ${sortable.phone} <c:if test="${not columns.phone}">hidden</c:if>" data-column="phone">
-				<a href="/users?size=${pagination.size}&sort=phone:asc">
-					Phone
-					<span class="dir"></span>
-				</a>
-			</th>
-			<th class="sortable ${sortable.address} <c:if test="${not columns.address}">hidden</c:if>" data-column="address">
-				<a href="/users?size=${pagination.size}&sort=address:asc">
-					Address
-					<span class="dir"></span>
-				</a>
-			</th>
-			<th class="sortable ${sortable.city} <c:if test="${not columns.city}">hidden</c:if>" data-column="city">
-				<a href="/users?size=${pagination.size}&sort=city:asc">
-					City
-					<span class="dir"></span>
-				</a>
-			</th>
-			<th class="sortable ${sortable.state} <c:if test="${not columns.state}">hidden</c:if>" data-width="120" data-column="state">
-				<a href="/users?size=${pagination.size}&sort=state:asc">
-					State
-					<span class="dir"></span>
-				</a>
-			</th>
-			<th class="sortable ${sortable.zipCode} <c:if test="${not columns.zipCode}">hidden</c:if>" data-width="120" data-column="zipCode">
-				<a href="/users?size=${pagination.size}&sort=zipCode:asc">
-					Zip Code
-					<span class="dir"></span>
-				</a>
-			</th>
-			<th class="sortable ${sortable.country} <c:if test="${not columns.country}">hidden</c:if>" data-column="country">
-				<a href="/users?size=${pagination.size}&sort=country:asc">
-					Country
-					<span class="dir"></span>
-				</a>
-			</th>
+			<c:forEach items="${columns}" var="column">
+				<c:set var="classes">
+					<c:if test="${column.sortable}">sortable ${column.direction}</c:if>
+					<c:if test="${column.hideable and not column.visible}">hidden</c:if>
+				</c:set>
+					
+				<th class="${classes}" <c:if test="${column.hideable}">data-column="${column.name}"</c:if>>
+					<c:if test="${column.sortable}"><a href="/users?${column.url}"></c:if>
+						${column.label}
+						<c:if test="${column.sortable}"><span class="dir"></span></c:if>
+					<c:if test="${column.sortable}"></a></c:if>
+				</th>
+			</c:forEach>
 			<th data-width="209">Actions</th>
 		</tr>
 
 	</thead>
 
 	<tbody>
-
 		<c:forEach items="${users}" var="user">
 			<tr data-editable-entity="user" data-editable-url="/api/users/${user.id}">
-				<td data-editable-field="userName" data-label="User Name" data-column="userName" class="<c:if test="${not columns.userName}">hidden</c:if>">${user.userName}</td>
-				<td data-editable-field="firstName" data-label="First Name" data-column="firstName" class="<c:if test="${not columns.firstName}">hidden</c:if>">${user.firstName}</td>
-				<td data-editable-field="middleName" data-label="Middle Name" data-column="middleName" class="<c:if test="${not columns.middleName}">hidden</c:if>">${user.middleName}</td>
-				<td data-editable-field="lastName" data-label="Last Name" data-column="lastName" class="<c:if test="${not columns.lastName}">hidden</c:if>">${user.lastName}</td>
-				<td data-editable-field="emailAddress" data-label="Email Address" data-column="emailAddress" class="<c:if test="${not columns.emailAddress}">hidden</c:if>">${user.emailAddress}</td>
-				<td data-editable-field="phone" data-label="Phone" data-column="phone" class="<c:if test="${not columns.phone}">hidden</c:if>">${user.phone}</td>
-				<td data-editable-field="address" data-label="Address" data-column="address" class="<c:if test="${not columns.address}">hidden</c:if>">${user.address}</td>
-				<td data-editable-field="city" data-label="City" data-column="city" class="<c:if test="${not columns.city}">hidden</c:if>">${user.city}</td>
-				<td data-editable-field="state" data-label="State" data-column="state" class="<c:if test="${not columns.state}">hidden</c:if>">${user.state}</td>
-				<td data-editable-field="zipCode" data-label="Zip Code" data-column="zipCode" class="<c:if test="${not columns.zipCode}">hidden</c:if>">${user.zipCode}</td>
-				<td data-editable-field="country" data-label="Country" data-column="country" class="<c:if test="${not columns.country}">hidden</c:if>">${user.country}</td>
-				<td>
+				
+				<c:forEach items="${columns}" var="column">
+					<td class="<c:if test="${column.hideable and not column.visible}">hidden</c:if>"
+						<c:if test="${column.editable}">
+							data-editable-field="${column.name}"
+						</c:if>
+						data-label="${column.label}"
+						data-column="${column.name}">${user[column.name]}</td>
+				</c:forEach>
+				
+				<td data-label="Actions">
 					<div class="btn-group">
 						<a href="/users/${user.id}" class="btn btn-sm btn-primary">
 							<span class="glyphicon glyphicon-eye-open"></span>
@@ -135,7 +80,6 @@
 	</tbody>
 </table>
 
-
 <div class="modal fade users-table-columns" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 
@@ -151,74 +95,16 @@
 			<div class="modal-body">
 				<p>Select which columns you would like to show/hide:</p>
 
-				<form:form modelAttribute="columns" action="/api/users/user-table-columns" method="PUT" class="js-table-columns">
+				<form:form action="/api/users/user-table-columns" method="PUT" class="js-table-columns">
 				
-					<div class="checkbox">
-						<label>
-							<form:checkbox path="userName" />
-							User Name
-						</label>
-					</div>
-					<div class="checkbox">
-						<label>
-							<form:checkbox path="firstName" />
-							First Name
-						</label>
-					</div>
-					<div class="checkbox">
-						<label>
-							<form:checkbox path="middleName" />
-							Middle Name
-						</label>
-					</div>
-					<div class="checkbox">
-						<label>
-							<form:checkbox path="lastName" />
-							Last Name
-						</label>
-					</div>
-					<div class="checkbox">
-						<label>
-							<form:checkbox path="emailAddress" />
-							Email Address
-						</label>
-					</div>
-					<div class="checkbox">
-						<label>
-							<form:checkbox path="phone" />
-							Phone
-						</label>
-					</div>
-					<div class="checkbox">
-						<label>
-							<form:checkbox path="address" />
-							Address
-						</label>
-					</div>
-					<div class="checkbox">
-						<label>
-							<form:checkbox path="city" />
-							City
-						</label>
-					</div>
-					<div class="checkbox">
-						<label>
-							<form:checkbox path="state" />
-							State
-						</label>
-					</div>
-					<div class="checkbox">
-						<label>
-							<form:checkbox path="zipCode" />
-							Zip Code
-						</label>
-					</div>
-					<div class="checkbox">
-						<label>
-							<form:checkbox path="country" />
-							Country
-						</label>
-					</div>
+					<c:forEach items="${columns}" var="column">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="${column.name}" <c:if test="${column.visible}">checked="checked"</c:if> />
+								${column.label}
+							</label>
+						</div>
+					</c:forEach>
 
 				</form:form>
 			</div>

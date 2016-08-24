@@ -1,13 +1,14 @@
 package com.starter.controllers.api;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.starter.dao.TableColumnDAO;
 import com.starter.dao.UserDAO;
+import com.starter.entities.TableColumnEntity;
 import com.starter.entities.UserEntity;
+import com.starter.forms.ListMapForm;
 import com.starter.forms.UserForm;
-import com.starter.service.TableColumnService;
-import com.starter.tables.UserTableColumns;
 import com.starter.validators.UserNameAvailableValidator;
 
 @Controller
@@ -33,7 +35,7 @@ public class UserControllerAPI extends BaseControllerAPI {
 	private UserDAO						userDAO;
 
 	@Autowired
-	private TableColumnService			tableColumnService;
+	private TableColumnDAO				tableColumnDAO;
 
 	@Autowired
 	private UserNameAvailableValidator	userNameAvailableValidator;
@@ -82,10 +84,38 @@ public class UserControllerAPI extends BaseControllerAPI {
 
 	@ResponseBody
 	@RequestMapping(value = "/api/users/user-table-columns", method = RequestMethod.PUT)
-	public Map<String, Object> updateTableColumns(HttpServletResponse response, HttpServletRequest request, @Valid UserTableColumns userTableColumns) throws Exception {
+	public Map<String, Object> updateTableColumns(HttpServletResponse response, ListMapForm listMapForm, HttpServletRequest request) throws Exception {
 		Map<String, Object> result = new HashMap<>();
+		List<Map<String, String>> fields = listMapForm.getFields();
 
-		this.tableColumnService.save(UserTableColumns.class, userTableColumns, "users");
+		if (fields == null) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			result.put("message", "invalid parameters");
+			return result;
+		}
+
+		UserEntity user = this.userDAO.getCurrentUser();
+		this.tableColumnDAO.deleteByUserAndSection(user, "users");
+
+		for (Map<String, String> map : fields) {
+
+			String name = map.get("name");
+			Boolean visible = Boolean.valueOf(map.get("visible"));
+
+			if (name == null || name.isEmpty() || visible == null) {
+				continue;
+			}
+
+			TableColumnEntity tableColumnEntity = new TableColumnEntity();
+			tableColumnEntity.setSection("users");
+			tableColumnEntity.setName(name);
+			tableColumnEntity.setVisible(visible);
+			tableColumnEntity.setUser(user);
+			tableColumnEntity.setCreatedAt(new Date());
+			this.tableColumnDAO.save(tableColumnEntity);
+		}
+
+		result.put("fields", fields);
 
 		return result;
 	}
