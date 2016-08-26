@@ -1,5 +1,6 @@
 package com.starter.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -12,12 +13,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.starter.dao.UserDAO;
+import com.starter.entities.PrivilegeEntity;
+import com.starter.entities.RoleEntity;
 import com.starter.entities.UserEntity;
 import com.starter.repositories.UserRepository;
 
@@ -133,4 +137,35 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		user.setLastLoggedInAt(new Date());
 		return this.update(user, null);
 	}
+
+	@Override
+	public List<? extends GrantedAuthority> getAuthorities(List<RoleEntity> roles) {
+		return this.getGrantedAuthorities(this.getPrivileges(roles));
+	}
+
+	private List<String> getPrivileges(List<RoleEntity> roles) {
+		List<String> privileges = new ArrayList<>();
+		List<PrivilegeEntity> list = new ArrayList<>();
+
+		for (RoleEntity role : roles) {
+			list.addAll(role.getPrivileges());
+		}
+
+		for (PrivilegeEntity item : list) {
+			privileges.add(item.getName());
+		}
+
+		return privileges;
+	}
+
+	private List<GrantedAuthority> getGrantedAuthorities(List<String> privileges) {
+		List<GrantedAuthority> authorities = new ArrayList<>();
+
+		for (String privilege : privileges) {
+			authorities.add(new SimpleGrantedAuthority(privilege));
+		}
+
+		return authorities;
+	}
+
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.JdbcUserDetailsManagerConfigurer;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -15,6 +16,7 @@ import com.starter.providers.StarterAuthenticationProvider;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -30,7 +32,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
 		JdbcUserDetailsManagerConfigurer<AuthenticationManagerBuilder> jdbcAuthenticatedDataSource = auth.jdbcAuthentication().dataSource(this.dataSource).passwordEncoder(this.passwordEncoder);
 		jdbcAuthenticatedDataSource.usersByUsernameQuery("SELECT user_name, password, enabled FROM users WHERE user_name = ?");
-		jdbcAuthenticatedDataSource.authoritiesByUsernameQuery("SELECT user_name, 'ROLE_ADMIN' AS role, enabled FROM users WHERE user_name = ?");
 	}
 
 	@Override

@@ -831,5 +831,287 @@
                 }
             }]
         }
+    }, {
+        "changeSet": {
+            "id": "permissions",
+            "author": "brettmeyer",
+            "changes": [{
+                "createTable": {
+                    "tableName": "roles",
+                    "columns": [{
+                        "column": {
+                            "name": "id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "primaryKey": true,
+                                "nullable": false
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "name",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "created_by_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "updated_by_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "created_at",
+                            "type": "datetime",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "updated_at",
+                            "type": "datetime",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }]
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "roles",
+                    "baseColumnNames": "created_by_id",
+                    "constraintName": "fk_roles_created_by_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "roles",
+                    "baseColumnNames": "updated_by_id",
+                    "constraintName": "fk_roles_updated_by_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "createTable": {
+                    "tableName": "privileges",
+                    "columns": [{
+                        "column": {
+                            "name": "id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "primaryKey": true,
+                                "nullable": false
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "name",
+                            "type": "varchar(255)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "created_by_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "updated_by_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "created_at",
+                            "type": "datetime",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "updated_at",
+                            "type": "datetime",
+                            "constraints": [{
+                                "nullable": true
+                            }]
+                        }
+                    }]
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "privileges",
+                    "baseColumnNames": "created_by_id",
+                    "constraintName": "fk_privileges_created_by_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "privileges",
+                    "baseColumnNames": "updated_by_id",
+                    "constraintName": "fk_privileges_updated_by_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "createTable": {
+                    "tableName": "users_roles",
+                    "columns": [{
+                        "column": {
+                            "name": "id",
+                            "type": "int",
+                            "autoIncrement": true,
+                            "constraints": [{
+                                "primaryKey": true,
+                                "nullable": false
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "user_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": false
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "role_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": false
+                            }]
+                        }
+                    }]
+                },
+            }, {
+                "createTable": {
+                    "tableName": "roles_privileges",
+                    "columns": [{
+                        "column": {
+                            "name": "id",
+                            "type": "int",
+                            "autoIncrement": true,
+                            "constraints": [{
+                                "primaryKey": true,
+                                "nullable": false
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "role_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": false
+                            }]
+                        }
+                    }, {
+                        "column": {
+                            "name": "privilege_id",
+                            "type": "BINARY(16)",
+                            "constraints": [{
+                                "nullable": false
+                            }]
+                        }
+                    }]
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "users_roles",
+                    "baseColumnNames": "user_id",
+                    "constraintName": "fk_users_roles_users",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "users",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "users_roles",
+                    "baseColumnNames": "role_id",
+                    "constraintName": "fk_users_roles_roles",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "roles",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "roles_privileges",
+                    "baseColumnNames": "role_id",
+                    "constraintName": "fk_roles_privileges_roles",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "roles",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }, {
+                "addForeignKeyConstraint": {
+                    "baseTableName": "roles_privileges",
+                    "baseColumnNames": "privilege_id",
+                    "constraintName": "fk_roles_privileges_privileges",
+                    "referencedColumnNames": "id",
+                    "referencedTableName": "privileges",
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE"
+                }
+            }]
+        }
+    }, {
+        "changeSet": {
+            "id": "permission-data",
+            "author": "brettmeyer",
+            "changes": [{
+                "loadData": {
+                    "tableName": "roles",
+                    "file": "db/data/roles.csv",
+                    "quotchar": "\"",
+                     "columns": [{
+                        "name": "id",
+                        "type": "COMPUTED"
+                    }]
+                }
+            }, {
+                "loadData": {
+                    "tableName": "privileges",
+                    "file": "db/data/privileges.csv",
+                    "quotchar": "\"",
+                     "columns": [{
+                        "name": "id",
+                        "type": "COMPUTED"
+                    }]
+                }
+            }]
+        }
     }]
 }

@@ -1,7 +1,6 @@
 package com.starter.providers;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -9,7 +8,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import com.starter.dao.UserDAO;
@@ -31,10 +29,9 @@ public class StarterAuthenticationProvider implements AuthenticationProvider {
 			return null;
 		}
 
-		List<GrantedAuthority> grantedAuths = new ArrayList<>();
-		grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-		grantedAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-		return new UsernamePasswordAuthenticationToken(name, credentials, grantedAuths);
+		Collection<? extends GrantedAuthority> authorities = this.userDAO.getAuthorities(user.getRoles());
+
+		return new UsernamePasswordAuthenticationToken(name, credentials, authorities);
 	}
 
 	@Override

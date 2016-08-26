@@ -25,6 +25,7 @@ TODO
 * Better way of handling mailing templates - fix vm console errors
 * UserName - must be one word
 * Password - minimum length
+  * Change Password must require old password too
 * Get error pages working for unauthenticated pages - a few redirects to 404 in LoginController
 * Table Optional Columns - Look at Amazon AWS pages for examples
 * Menu History - latest sections
@@ -34,3 +35,6 @@ TODO
 * Help Page
 * Put Current User's name in navigation
 * icon
+* Permissions
+	* Roles
+	* CREATE, READ, UPDATE, DELETE, READ_OWN, UPDATE_OWN, DELETE_OWN

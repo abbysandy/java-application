@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.starter.dao.UserDAO;
 import com.starter.entities.UserEntity;
 
-public class HomeRedirectInterceptor implements HandlerInterceptor {
+public class StarterHandlerInterceptor implements HandlerInterceptor {
 
 	@Autowired
 	private UserDAO userDAO;

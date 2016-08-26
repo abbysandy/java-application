@@ -1,9 +1,14 @@
 package com.starter.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -11,49 +16,53 @@ import javax.persistence.Table;
 public class UserEntity extends BaseEntity {
 
 	@Column
-	private String	userName;
+	private String				userName;
 
 	@Column
-	private String	password;
+	private String				password;
 
 	@Column
-	private String	firstName;
+	private String				firstName;
 
 	@Column
-	private String	middleName;
+	private String				middleName;
 
 	@Column
-	private String	lastName;
+	private String				lastName;
 
 	@Column
-	private String	emailAddress;
+	private String				emailAddress;
 
 	@Column
-	private String	phone;
+	private String				phone;
 
 	@Column
-	private String	address;
+	private String				address;
 
 	@Column
-	private String	city;
+	private String				city;
 
 	@Column
-	private String	state;
+	private String				state;
 
 	@Column
-	private String	zipCode;
+	private String				zipCode;
 
 	@Column
-	private String	country;
+	private String				country;
 
 	@Column
-	private boolean	enabled;
+	private boolean				enabled;
 
 	@Column
-	private String	forgotPasswordKey;
+	private String				forgotPasswordKey;
 
 	@Column
-	private Date	lastLoggedInAt;
+	private Date				lastLoggedInAt;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	private List<RoleEntity>	roles;
 
 	public String getUserName() {
 		return this.userName;
@@ -173,6 +182,14 @@ public class UserEntity extends BaseEntity {
 
 	public void setLastLoggedInAt(Date lastLoggedInAt) {
 		this.lastLoggedInAt = lastLoggedInAt;
+	}
+
+	public List<RoleEntity> getRoles() {
+		return this.roles;
+	}
+
+	public void setRoles(List<RoleEntity> roles) {
+		this.roles = roles;
 	}
 
 	public String getFullName() {
