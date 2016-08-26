@@ -1,13 +1,14 @@
 package com.starter.controllers;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.velocity.VelocityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -117,10 +118,10 @@ public class LoginController extends BaseController {
 		user.setForgotPasswordKey(key);
 		this.userDAO.update(user, null);
 
-		VelocityContext ctx = new VelocityContext();
-		ctx.put("firstName", user.getFirstName());
-		ctx.put("key", key);
-		this.mailService.send(user.getEmailAddress(), "brettmeyerxpx@gmail.com", "Starter Password Request", "templates/email/forgot-password.vm", ctx);
+		Map<String, String> data = new HashMap<>();
+		data.put("firstName", user.getFirstName());
+		data.put("key", key);
+		this.mailService.send(user.getEmailAddress(), "brettmeyerxpx@gmail.com", "Starter Password Request", "forgot-password.ftl", data);
 
 		attr.addFlashAttribute("emailAddress", user.getEmailAddress());
 		return "redirect:/login/forgot-password/sent";

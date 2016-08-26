@@ -1,13 +1,13 @@
 package com.starter.service;
 
-import javax.mail.MessagingException;
+import java.util.Map;
 
-import org.apache.velocity.VelocityContext;
+import javax.mail.MessagingException;
 
 public interface MailService {
 
 	public void send(String to, String from, String subject, String text) throws MessagingException;
 
-	public void send(String to, String from, String subject, String template, VelocityContext ctx) throws MessagingException;
+	public void send(String to, String from, String subject, String template, Map<String, String> data);
 
 }
