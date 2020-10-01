@@ -48,7 +48,8 @@ public class UserControllerTest extends BaseControllerTest {
 	public void testUsers() throws Exception {
 		this.mockMvc.perform(get("/users")).andExpect(status().isOk()).andExpect(view().name("users.list"));
 	}
-
+ 
+	//Testing user details
 	@Test
 	public void testUserDetails() throws Exception {
 		this.mockMvc.perform(get("/users/1")).andExpect(status().isOk()).andExpect(view().name("users.details"));
@@ -58,7 +59,8 @@ public class UserControllerTest extends BaseControllerTest {
 	public void testUsersNew() throws Exception {
 		this.mockMvc.perform(get("/users/new")).andExpect(status().isOk()).andExpect(view().name("users.new"));
 	}
-
+         
+	//user create
 	@Test
 	public void testUserCreate() throws Exception {
 		MockHttpServletRequestBuilder post = post("/users");
@@ -71,7 +73,8 @@ public class UserControllerTest extends BaseControllerTest {
 
 		Mockito.verify(this.userDAO, Mockito.times(1)).create(Mockito.any(UserEntity.class));
 	}
-
+         
+	//user edit
 	@Test
 	public void testUsersEdit() throws Exception {
 		this.mockMvc.perform(get("/users/1/edit")).andExpect(status().isOk()).andExpect(view().name("users.edit"));
